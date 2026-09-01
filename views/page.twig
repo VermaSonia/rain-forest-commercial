@@ -1,6 +1,5 @@
-{% extends "base.twig" %}
 {% block content %}
-	<div class="content-wrapper">
-		{{ post.content }}
-	</div>
+    <section class="{{field.slug}}-page" id="{{field.slug}}-page">
+		{{page.content }}
+    </section>
 {% endblock %}
