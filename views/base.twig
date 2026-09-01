@@ -1,6 +1,3 @@
-{# Imports #}
-{% import 'components/image.twig' as Logo %}
-
 {# Blocks & Includes #}
 {% block html_head_container %}
 	{% include 'partials/html-header.twig' %}
@@ -38,40 +35,40 @@
 		</div>
 
 		{# {% if sidebar %}
-						                <aside class="layout-sidebar">{{sidebar}}
-						                </aside>
-						            {% endif %} #}
+								                <aside class="layout-sidebar">{{sidebar}}
+								                </aside>
+								            {% endif %} #}
 
 	</section>
 
 
 	<div class="overlay padding-lr" id="overlay">
 		<div class="wrapper container">
-			<a class="site-logo" href="{{site.link}}" rel="home" aria-label="{{site.name}}">
-				{# {{source (directory ~ '/images/logo/procast-logo.svg') }} #}
+			<a
+				class="site-logo" href="{{site.link}}" rel="home" aria-label="{{site.name}}">{# {{source (directory ~ '/images/logo/procast-logo.svg') }} #}
 			</a>
 			<div class="overlay-nav-main">
 				<nav id="site-navigation3" class="overlay-menu" role="navigation">
 					{% include "menu.twig" with{'items':menu.get_items} %}
 				</nav>
 				{# <div class="contact-info">
-					<a href="{{options.get_directions}}">
-						{{source (directory ~ '/static/images/location-icon.svg') }}
-						{{options.address.street_address}},<br/>
-						{{options.address.city}},
-						{{options.address.province}}
-						{{options.address.postal_code}}
-					</a>
-					<a href="tel:{{ options.phone_number }}">
-						{{source (directory ~ '/static/images/phone-icon.svg') }}
-						{% set phoneNumber = options.phone_number %}{% include 'partials/phone-number.twig' %}
-					</a>
-					<p>
-						{{source (directory ~ '/static/images/email-icon.svg') }}
-						{% set myEmail = options.email %}
-						{% include 'partials/email.twig' %}
-					</p>
-				</div> #}
+									<a href="{{options.get_directions}}">
+										{{source (directory ~ '/static/images/location-icon.svg') }}
+										{{options.address.street_address}},<br/>
+										{{options.address.city}},
+										{{options.address.province}}
+										{{options.address.postal_code}}
+									</a>
+									<a href="tel:{{ options.phone_number }}">
+										{{source (directory ~ '/static/images/phone-icon.svg') }}
+										{% set phoneNumber = options.phone_number %}{% include 'partials/phone-number.twig' %}
+									</a>
+									<p>
+										{{source (directory ~ '/static/images/email-icon.svg') }}
+										{% set myEmail = options.email %}
+										{% include 'partials/email.twig' %}
+									</p>
+								</div> #}
 			</div>
 		</div>
 	</div>
