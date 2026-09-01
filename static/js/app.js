@@ -129,21 +129,6 @@ jQuery(document).ready(function ($) {
 
 
 
-  //*** Flexslider ***
-  // var $flexslider = $('.flex-slider');
-  // $flexslider.flexslider({
-  //   smoothHeight: false,
-  //   slideshow: true,
-  //   arrows: false,
-  //   dots: true,
-  //   controlNav: true,
-  //   directionNav: true,
-  //   slideshowSpeed: 5000,
-  //   useCSS: false /* Chrome fix*/
-  // });// End Flexslider
-
-
-
   //Slick SLider
   // $('.slider').slick({
   //   dots: false,

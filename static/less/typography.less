@@ -4,7 +4,12 @@
 
     Usage: .font-size(48,28);
 */
-
+.lh(@max, @min){
+    line-height: @max;
+    @media @min992{
+        line-height: @min;
+    }
+}
 .font-size(@maxsize, @minsize){    
     font-size: ~"calc(@{minsize}px + ( @{maxsize} - @{minsize} ) * ((100vw - 370px) / (1640 - 370)))";  
     @media @min1920{
@@ -16,34 +21,53 @@
 .h1,.h2,.h3,.h4,.h5,.h6, h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-primary);
     color: var(--pri-500);
-    .font-size(80,48);
-    line-height: var(--heading-line-height);
+    .font-size(56,40);
+    .lh(64px, 48px);
     font-weight: 700;
 }
 
 .h2, h2 {
-    .font-size(60,40);
+    .font-size(48,36);
+    .lh(56px, 44px);
 }
 
 
 .h3, h3 {
-   .font-size(48,20);
+   .font-size(40,32);
+   .lh(48px, 40px);
 }
 
 .h4, h4 {
-    .font-size(30, 20);
+    .font-size(32, 28);
+    .lh(40px, 36px);
 }
 
-.h5,.h6, h5, h6 {
-    .font-size(20, 16);
+.h5, h5{
+    .font-size(24, 22);
+    .lh(32px, 30px);
 }
 
-p,li,a,td,span, legend, label, .wpcf7-response-output {
-    font-family: var(--font-primary);
+.h6, h6 {
+    .font-size(20, 18);
+    .lh(28px, 24px);
+}
+
+p,li,a,td,span, legend, label, .wpcf7-response-output, div, .small, .caption {
+    font-family: var(--font-secondary);
     color: var(--black);
-    line-height: var(--body-line-height);
+    .lh(28px, 26px);
     font-weight: 400;
-    .font-size(20, 16);
+    .font-size(16, 16);
+}
+
+.small{
+    .lh(22px, 20px);
+    .font-size(14, 14);
+}
+
+.caption{
+    .lh(18px, 16px);
+    .font-size(12, 12);
 }
 
 a, button, .wp-block-button__link {
