@@ -100,6 +100,8 @@ class StarterSite extends Timber\Site
 			$context = [];
 		}
 		$content['menu'] = Timber::get_menu();
+		$content['pages'] = Timber::get_menu('pages');
+		$content['services'] = Timber::get_menu('services');
 		$context['site']  = $this;
 		return $context;
 	}
@@ -279,6 +281,8 @@ class StarterSite extends Timber\Site
 	public function theme_register_nav_menus() {
 		register_nav_menus( array(
 			'primary_menu' => esc_html__( 'Primary Menu', 'rfcomm' ),
+			'services' => esc_html__( 'Services Menu', 'rfcomm' ),
+			'pages' => esc_html__( 'Pages Menu', 'rfcomm' ),
 		) );		
 	}
 
