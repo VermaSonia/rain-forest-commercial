@@ -571,21 +571,102 @@ div {
 // }
 
 .custom-btn {
-    background-color: var(--pri-500);
-    border: 2px solid var(--pri-500);
-    padding: 8px 0px;
-    font-weight: 300;
+    background-color: var(--sec-300);
+    border: 2px solid var(--sec-300);
+    padding: 8px 24px;
+    font-weight: 400;
     text-decoration: none;
     display: inline-block;
+    transition: all .3s ease-in-out;
     font-family: var(--font-primary);
-    font-size: 20px;
-    // border-radius: 50px;
+    .font-size(18, 16);
+    .lh(30px, 24px);
+    color: var(--white);
+    border-radius: 8px;
     .center();
+    text-decoration: none !important;
+
+    @media @min992 {
+        font-weight: 700;
+    }
 
     &:hover {
         background-color: transparent;
-        color: var(--pri-500);
+        color: var(--white);
+        background-color: var(--sec-200);
+        border-color: var(--sec-200);
         opacity: 1;
+    }
+
+    &:focus {
+        outline: 2px solid var(--sec-400);
+        outline-offset: 3px;
+    }
+
+    &:active {
+        background-color: var(--sec-100);
+        border-color: var(--sec-100);
+    }
+}
+
+.primary-btn {
+    .custom-btn();
+    background-color: var(--pri-300);
+    border: 2px solid var(--pri-300);
+
+    &:hover {
+        background-color: transparent;
+        background-color: var(--pri-200);
+        border-color: var(--pri-200);
+    }
+
+    &:focus {
+        outline: 2px solid var(--pri-400);
+        outline-offset: 3px;
+    }
+
+    &:active {
+        background-color: var(--pri-100);
+        border-color: var(--pri-100);
+    }
+}
+
+
+
+.phone-btn {
+    .custom-btn();
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+
+    svg {
+        path {
+            fill: transparent;
+            stroke: var(--white);
+        }
+    }
+}
+
+.submit-btn {
+    .phone-btn();
+    background-color: var(--neu-200);
+    border: 2px solid var(--neu-200);
+
+    &:hover {
+        background-color: transparent;
+        background-color: var(--neu-400);
+        border-color: var(--neu-400);
+    }
+
+    &:focus {
+        outline: 2px solid var(--neu-400);
+        outline-offset: 3px;
+    }
+
+    &:active {
+        background-color: var(--black);
+        border-color: var(--black);
     }
 }
 
@@ -741,7 +822,59 @@ header {
 * HERO
 ***********************************/
 .hero {
-    // margin-top: 114px; // use for Fixed header
+    position: relative;
+    height: 100svh;
+
+    &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        display: block;
+        width: 100%;
+        height: auto;
+        background-color: rgba(0, 0, 0, 0.3);
+        z-index: 1;
+    }
+
+    @media @min992 {
+        height: 800px;
+    }
+
+    img {
+        height: 100svh;
+        object-fit: cover;
+        object-position: right;
+
+        @media @min992 {
+            height: 800px;
+            min-height: 100%;
+        }
+    }
+
+    .wrapper {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 10;
+        width: 100%;
+        .padding-lr();
+
+        .container {
+
+            .text-content {
+                max-width: 630px;
+                width: 100%;
+
+                .content {
+                    margin-top: var(--space-sm);
+                }
+
+                .cta {
+                    margin-top: var(--space-md);
+                }
+            }
+        }
+    }
 }
 
 
@@ -759,53 +892,82 @@ footer {
         .padding-lr();
     }
 
-    .copyright {
-        margin-top: 52.5px;
-        padding-bottom: 52.5px;
+    .contact-info {
+        .logo {
+            .display-flex(flex, 28px, column, center);
 
-        span,
-        a {
-            font-size: 12px;
-            width: 100%;
-            margin: 0;
-            color: var(--black);
+            .social-media {
+                display: flex;
+                flex-direction: row;
+                gap: var(--space-sm);
+                align-items: center;
 
-            @media screen and (min-width: 600px) {
-                width: auto;
+                svg {
+                    path {
+                        fill: var(--white);
+                    }
+                }
             }
         }
 
+        .location-details {
+            .wrapper {
+                .details {
+                    margin-top: var(--space-sm);
+                    p {
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+    }
+
+    .copyright {
+        padding-block: var(--space-24);
+        border-top: 1px solid var(--neu-300);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row;
+        gap: var(--space-12);
+
+        @media @max768 {
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        span,
+        a {
+            font-size: 14px;
+            width: auto;
+            margin: 0;
+            color: var(--white);
+        }
+
+        .site-by a {
+            color: var(--pri-400) !important;
+        }
+
         .copyright-text {
-            display: block;
+            display: inline-block;
+        }
+
+        .right-content {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            gap: var(--space-12);
+
+            img {
+                height: 6px;
+                aspect-ratio: 1/1;
+            }
         }
 
         span:nth-of-type(2) {
             display: block;
             margin-bottom: 0;
-
-            @media @min1024 {
-                display: inline-block;
-            }
+            display: inline-block;
         }
     }
 }
-
-//if you want footer text in one line
-// span,a {
-//     // width: 100%;
-// }
-
-// .copyright-text {
-//     display: block;
-//     @media @min1024{
-//         display: inline-block;
-//     }
-// }
-
-// span:nth-of-type(2) {
-//     display: inline-block;
-//     margin-bottom: 0;
-//     @media @min1024 {
-//         display: inline-block;
-//     }
-// }

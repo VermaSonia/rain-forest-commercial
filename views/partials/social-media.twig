@@ -1,32 +1,22 @@
-{# <div class="social-media">
-  {% if options.facebook %}
-    <a href="{{ options.facebook }}" target="_blank" rel="noopener noreferrer"  aria-label="open facebook">
-      {{ source(directory ~ '/static/images/social/facebook.svg') }}
-    </a>
-  {% endif %}
-  {% if options.instagram %}
-    <a href="{{ options.instagram }}" target="_blank" rel="noopener noreferrer"  aria-label="open instagram">
-      {{ source(directory ~ '/static/images/social/instagram.svg') }}
-    </a>
-  {% endif %}
-  {% if options.tiktok %}
-    <a href="{{ options.tiktok }}" target="_blank" rel="noopener noreferrer"  aria-label="open tiktok">
-      {{ source(directory ~ '/static/images/social/tiktok.svg') }}
-    </a>
-  {% endif %}
-  {% if options.twitter %}
-    <a href="{{ options.twitter }}" target="_blank" rel="noopener noreferrer"  aria-label="open twitter">
-      {{ source(directory ~ '/static/images/social/twitter.svg') }}
-    </a>
-  {% endif %}
-   {% if options.linkedin %}
-    <a href="{{ options.linkedin }}" target="_blank" rel="noopener noreferrer"  aria-label="open linkedin">
+<div class="social-media">
+   {% if options.social_media.linkedin %}
+    <a href="{{ options.social_media.linkedin }}" target="_blank" rel="noopener noreferrer"  aria-label="open linkedin">
       {{ source(directory ~ '/static/images/social/linkedin.svg') }}
     </a>
   {% endif %}
-  {% if options.youtube %}
-    <a href="{{ options.youtube }}" target="_blank" rel="noopener noreferrer"  aria-label="open you tube">
-      {{ source(directory ~ '/static/images/social/youtube.svg') }}
+   {% if options.social_media.yelp %}
+    <a href="{{ options.social_media.yelp }}" target="_blank" rel="noopener noreferrer"  aria-label="open yelp">
+      {{ source(directory ~ '/static/images/social/yelp.svg') }}
     </a>
   {% endif %}
-</div> #}
+  {% if options.social_media.instagram %}
+    <a href="{{ options.social_media.instagram }}" target="_blank" rel="noopener noreferrer"  aria-label="open instagram">
+      {{ source(directory ~ '/static/images/social/instagram.svg') }}
+    </a>
+  {% endif %}
+    {% if options.social_media.facebook %}
+      <a href="{{ options.social_media.facebook }}" target="_blank" rel="noopener noreferrer"  aria-label="open facebook">
+        {{ source(directory ~ '/static/images/social/facebook.svg') }}
+      </a>
+    {% endif %}  
+</div>

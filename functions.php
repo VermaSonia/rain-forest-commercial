@@ -70,6 +70,7 @@ class StarterSite extends Timber\Site
 		add_action( 'wp_enqueue_scripts', array( $this, 'loadFavicon' ) );
 		add_action( 'widgets_init', array( $this, 'widget_area' ) );
 		add_action( 'login_head', array( $this, 'custom_login_logo' ) );
+		add_filter( 'timber/context', array( $this, 'options_page_global' ) );
 		add_filter( 'login_headerurl', array( $this, 'login_logo_url' ) );
 		add_filter( 'login_headertext', array( $this, 'login_logo_url_title' ) );
 		add_action( 'admin_menu', array( $this, 'remove_unecessary_menu_items' ) );
@@ -294,6 +295,11 @@ class StarterSite extends Timber\Site
 			acf_add_options_page();
 			acf_set_options_page_title( __('Footer') );
 		}		
+	}
+
+	public function options_page_global( $context ) {
+		$context['options'] = get_fields('option');
+		return $context;
 	}
 
 	/**

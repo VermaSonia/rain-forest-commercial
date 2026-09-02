@@ -4,55 +4,84 @@
 
     Usage: .font-size(48,28);
 */
-.lh(@max, @min){
-    line-height: @max;
-    @media @min992{
-        line-height: @min;
+.lh(@max, @min) {
+    line-height: @min;
+
+    @media @min992 {
+        line-height: @max;
     }
 }
-.font-size(@maxsize, @minsize){    
-    font-size: ~"calc(@{minsize}px + ( @{maxsize} - @{minsize} ) * ((100vw - 370px) / (1640 - 370)))";  
-    @media @min1920{
-        font-size: ~"@{maxsize}px";
+
+.font-size(@maxsize, @minsize) {
+    font-size:~"calc(@{minsize}px + ( @{maxsize} - @{minsize} ) * ((100vw - 370px) / (1640 - 370)))";
+
+    @media @min1920 {
+        font-size:~"@{maxsize}px";
     }
 }
 
 
-.h1,.h2,.h3,.h4,.h5,.h6, h1, h2, h3, h4, h5, h6 {
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: var(--font-primary);
     color: var(--pri-500);
-    .font-size(56,40);
+    .font-size(56, 40);
     .lh(64px, 48px);
     font-weight: 700;
 }
 
-.h2, h2 {
-    .font-size(48,36);
+.h2,
+h2 {
+    .font-size(48, 36);
     .lh(56px, 44px);
 }
 
 
-.h3, h3 {
-   .font-size(40,32);
-   .lh(48px, 40px);
+.h3,
+h3 {
+    .font-size(40, 32);
+    .lh(48px, 40px);
 }
 
-.h4, h4 {
+.h4,
+h4 {
     .font-size(32, 28);
     .lh(40px, 36px);
 }
 
-.h5, h5{
+.h5,
+h5 {
     .font-size(24, 22);
     .lh(32px, 30px);
 }
 
-.h6, h6 {
+.h6,
+h6 {
     .font-size(20, 18);
     .lh(28px, 24px);
 }
 
-p,li,a,td,span, legend, label, .wpcf7-response-output, div, .small, .caption {
+p,
+li,
+a,
+td,
+span,
+legend,
+label,
+.wpcf7-response-output,
+div,
+.small,
+.caption {
     font-family: var(--font-secondary);
     color: var(--black);
     .lh(28px, 26px);
@@ -60,21 +89,24 @@ p,li,a,td,span, legend, label, .wpcf7-response-output, div, .small, .caption {
     .font-size(16, 16);
 }
 
-.small{
+.small {
     .lh(22px, 20px);
     .font-size(14, 14);
 }
 
-.caption{
+.caption {
     .lh(18px, 16px);
     .font-size(12, 12);
 }
 
-a, button, .wp-block-button__link {
+a,
+button,
+.wp-block-button__link {
     transition: .3s;
     text-decoration: none;
+
     &:hover {
-       text-decoration: underline;
+        text-decoration: underline;
     }
 }
 
@@ -84,25 +116,35 @@ a, button, .wp-block-button__link {
 //     transition: all .3s ease-in-out;
 // }
 
-.letter-spacing(@mb, @dk){
-    letter-spacing: ~"@{mb}px";
-    @media @min768{
-        letter-spacing: ~"@{dk}px";
+.letter-spacing(@mb, @dk) {
+    letter-spacing:~"@{mb}px";
+
+    @media @min768 {
+        letter-spacing:~"@{dk}px";
     }
 }
+
 .p-content {
     p:not(:first-child) {
-      margin-top: var(--space-12);
-  
-      @media @min992 {
-        margin-top: var(--space-sm);
-      }
-    }
-  }
+        margin-top: var(--space-12);
 
-[data-aos= "fadeIn"]{
-    opacity: 0;  
+        @media @min992 {
+            margin-top: var(--space-sm);
+        }
+    }
 }
-&.aos-animate{
+
+[data-aos="fadeIn"] {
+    opacity: 0;
+}
+
+&.aos-animate {
     opacity: 1;
+}
+
+.white {
+    color: var(--white);
+}
+.dark{
+    background-color: var(--neu-100);
 }

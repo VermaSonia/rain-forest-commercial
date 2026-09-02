@@ -1,21 +1,52 @@
-
-<div id="contact" class="contact">
-    <div class="contact-info">
-        <h1>Contact</h1>
-        <div class="logo">
-			<a class="site-logo" href="{{site.link}}" rel="home">
-            {# no source function as it not supported in footer #}
-				<img src="{{site.theme.link}}/static/images/no-vacancy-logo.svg" alt="No Vacancy Logo" class="img-responsive">
-			</a>
+<div id="contact" class="contact dark">
+	<div class="container">
+		<div class="contact-info padding-tb">
+			<div class="logo">
+				<a class="site-logo" href="{{site.link}}" rel="home">
+					<img src="{{site.theme.link}}/static/images/logo/footer-white-logo.svg" alt="frf-white Logo" class="img-responsive">
+				</a>
+				{% include 'partials/social-media.twig' %}
+			</div>
+            <div class="location-menu-details">
+                <div class="location-details">
+                    <h2 class="title white h6">Locations</h2>
+                    <div class="wrapper">
+                        {% for item in options.locations %}
+                            <div class="details">
+                                <p class="address white">{{item.address}}</p>
+                                <p class="license white">{{item.license_details}}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="footer-menu">
+					<div class="min-pages-menu">
+						{% include "menu.twig" with{'items':pages.get_items} %}
+					</div>
+					<div class="services-menu">
+						{% include "menu.twig" with{'items':services.get_items} %}
+					</div>
+                </div>
+            </div>
 		</div>
-        <div class="details">
-        </div>
-    </div>
-    <div class="copyright center">
-        <span class="copyright-text">&copy; Company name {{"now"|date('Y')}}. </span>
-        <span class="site-by">Site by <a href="https://profitfill.com/" target="_blank" rel="noopener noreferrer" aria-label="link to ProfitFill website">ProfitFill</a></span>
-        <span> | <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer" aria-label="Link to google terms">Google Terms</a></span>
-    </div>
+		<div class="copyright center">
+			<div class="left-content">
+				<span class="copyright-text">&copy; Rainforest Plumbing &amp; Air
+					{{"now"|date('Y')}}.
+				</span>
+				<span class="site-by">Site by
+					<a href="https://profitfill.com/" target="_blank" rel="noopener noreferrer" aria-label="link to ProfitFill website">ProfitFill</a>
+				</span>
+			</div>
+			<div class="right-content">
+				<span class="privacy">
+					<a href="/privacy-policy" aria-label="link to privacy policy">Privacy Policy</a>
+				</span>
+				<img src="{{site.theme.link}}/static/images/icon/dot.svg" alt="whitedot"/>
+				<span class="privacy">
+					<a href="/terms-and-conditions" aria-label="link to terms and conditions">Terms &amp; Conditions</a>
+				</span>
+			</div>
+		</div>
+	</div>
 </div>
-
-
