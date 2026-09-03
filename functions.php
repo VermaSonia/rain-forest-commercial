@@ -100,7 +100,7 @@ class StarterSite extends Timber\Site
 		if ( ! is_array( $context ) ) {
 			$context = [];
 		}
-		$context['menu'] = Timber::get_menu();
+		$context['menu'] = Timber::get_menu('primary_menu');
 		$context['pages_menu'] = Timber::get_menu('pages');
 		$context['services_menu'] = Timber::get_menu('services');
 		$context['site']  = $this;

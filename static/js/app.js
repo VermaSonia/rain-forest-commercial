@@ -1,12 +1,12 @@
 jQuery(document).ready(function ($) {
-  // fixedHeaderOnScroll();
+  fixedHeaderOnScroll();
   $('#toggle').click(function () {
     $(this).toggleClass('active');
     $('#overlay').toggleClass('open');
     $('html').toggleClass('hidden');
-    // if ($('header').hasClass('fixed-header')) {
-    //   $('header').toggleClass('overlay-header');
-    // }
+    if ($('header').hasClass('fixed-header')) {
+      $('header').toggleClass('overlay-header');
+    }
   });
 
 
@@ -79,37 +79,35 @@ jQuery(document).ready(function ($) {
 
 
   //*** Fixed header ***
-  // function fixedHeaderOnScroll(){
-  //   // var heroHeight = window.innerHeight; //use me if want to display fixed header according to innerHeight.
-  //   // if ($(this).scrollTop() >= heroHeight) {// 
-  //   if ($(this).scrollTop() >= 0) {        // If page is scrolled 
-  //       $('header').addClass('fixed-header');    // Fade in the arrow
-  //   } else {
-  //       $('header').removeClass('fixed-header');   // Else fade out the arrow
-  //   }
-  // }
+  function fixedHeaderOnScroll() {
+    if ($(this).scrollTop() >= 50) {        // If page is scrolled 
+      $('header').addClass('fixed-header');    // Fade in the arrow
+    } else {
+      $('header').removeClass('fixed-header');   // Else fade out the arrow
+    }
+  }
 
   /************************************************
   uncomment follwoing code if window.innerheight is
   included in fixedHeaderOnScroll function.  
   *************************************************/
 
-  // $(window).on('load scroll resize', function () {
-  //   fixedHeaderOnScroll();
-  // });
+  $(window).on('load scroll resize', function () {
+    fixedHeaderOnScroll();
+  });
 
-  // $(window).on('load', function () {
-  //   fixedHeaderOnScroll();
-  // });
+  $(window).on('load', function () {
+    fixedHeaderOnScroll();
+  });
 
-  // $(window).scroll(function () {
-  //   fixedHeaderOnScroll();
-  // });
+  $(window).scroll(function () {
+    fixedHeaderOnScroll();
+  });
 
 
-  // $(window).resize(function() {
-  //   fixedHeaderOnScroll();
-  // });
+  $(window).resize(function() {
+    fixedHeaderOnScroll();
+  });
 
 
   //*** Scroll to Top *** use with less *** use with html ***

@@ -175,7 +175,7 @@
 
 .error404 {
     .error-block {
-        padding-bottom: 100px;
+        padding-bottom: 50px;
 
         h1 {
             color: var(--neu-500);
@@ -229,40 +229,48 @@ body {
 
 .button_container {
     display: block;
-    position: absolute; // use position fixed fro fixed header
-    top: 47px;
+    position: relative;
+    top: 0;
     right: 0;
     height: 27px;
-    width: 49px;
+    width: 32px;
     cursor: pointer;
     z-index: 500;
     transition: all .25s ease;
 
     &:hover {
-        opacity: .7;
+        span {
+            background: var(--pri-400);
+        }
+
+        &.active {
+            span {
+                background: var(--pri-400);
+            }
+        }
     }
 
     &.active {
         .top {
             transform: translateY(11px) translateX(0) rotate(45deg);
-            background: var(--pri-500);
+            background: var(--white);
         }
 
         .middle {
             opacity: 0;
-            background: var(--pri-500);
+            background: var(--white);
             width: 100%;
         }
 
         .bottom {
             transform: translateY(-11px) translateX(0) rotate(-45deg);
-            background: var(--pri-500);
+            background: var(--white);
             width: 100%;
         }
     }
 
     span {
-        background: var(--pri-500);
+        background: var(--white);
         height: 2px;
         width: 100%;
         position: absolute;
@@ -302,7 +310,7 @@ body {
 */
 .overlay {
     position: fixed;
-    background: var(--pri-500);
+    background: var(--neu-100);
     top: 0;
     left: 0;
     width: 100%;
@@ -364,8 +372,7 @@ body {
     }
 
     .overlay-nav-main {
-        margin-block-start: 120px;
-        .padding-lr();
+        margin-block-start: var(--space-40);
 
         .overlay-menu {
             position: relative;
@@ -402,22 +409,6 @@ body {
                         opacity: 1;
                     }
                 }
-
-                // > ul{
-                //     display: none;
-                //     > li{
-                //         a{
-                //             .font-size(27,23);
-                //         }
-                //     }
-                // }
-                // &.menu-item-44{
-                //     cursor: pointer;
-                //     a{
-                //         .display-flex(flex, 30px, row, center);
-                //         pointer-events: none;
-                //     }
-                // }
             }
         }
     }
@@ -497,23 +488,11 @@ form {
         background-color: var(--white);
     }
 
-    ::-webkit-input-placeholder {
-        /* WebKit browsers */
-        .form-placeholder();
-    }
-
-    :-moz-placeholder {
-        /* Mozilla Firefox 4 to 18 */
-        .form-placeholder();
-    }
-
-    ::-moz-placeholder {
-        /* Mozilla Firefox 19+ */
-        .form-placeholder();
-    }
-
+    ::-webkit-input-placeholder,
+    :-moz-placeholder,
+    ::-moz-placeholder,
     :-ms-input-placeholder {
-        /* Internet Explorer 10+ */
+        /* WebKit browsers */
         .form-placeholder();
     }
 }
@@ -539,37 +518,10 @@ form {
     transform: scaleX(-1);
 }
 
-// button:focus,
-// input:focus {
-//     outline: none;
-// }
-
 div {
     box-sizing: border-box;
 }
 
-// .gform_wrapper .gform_validation_errors {
-//     background: transparent !important;
-//     margin-top: 50px !important;
-// }
-
-// .gform_wrapper.gravity-theme .description, .gform_wrapper.gravity-theme .gfield_description, .gform_wrapper.gravity-theme .gsection_description, .gform_wrapper.gravity-theme .instruction {
-//     background: transparent;
-//     width: 100% !important;
-//     @media @min768 {
-//         width: 200px !important;
-//     }
-// }
-
-// #gform_wrapper_1 {
-//     margin-top: 100px !important;
-// }
-
-
-// a:focus,
-// button:focus {
-//     outline: none;
-// }
 
 .custom-btn {
     background-color: var(--sec-300);
@@ -691,128 +643,261 @@ img {
 ***********************************/
 
 header {
-    padding: 30px 0;
-    background-color: var(--white);
+    padding: 6px 0;
     width: 100%;
-    // max-width: 1920px;
-    // .padding-lr();
     box-sizing: border-box;
-    //use these css fro fixed header
-    position: relative;
-    // z-index: 400;
-    // top: 0;
-    transition: all 0.3s;
+    position: fixed;
+    top: 0;
+    transition: all 0.3s ease-in-out;
+    z-index: 500;
 
-    // &.fixed-header {
-    //     background-color: var(--white); // change according to header
-    //     // backdrop-filter: blur(5px);
-    //     box-shadow: 0 1px 6px 0 rgb(32, 33, 36 / 28%);
-    //     position: fixed;
-    //     padding-block: 14px;
-    //     z-index: 390;
-    //     .site-logo{
-    //         svg{
-    //             transform: scale(0.8);
-    //         }
-    //     }
+    &.fixed-header {
+        background-color: rgba(0, 0, 0, 0.6); // change according to header
+        backdrop-filter: blur(5px);
+        position: fixed;
+        padding-block: 0px;
 
-    // }
+        .site-logo {
+            svg {
+                transform: scale(0.8);
+            }
+        }
 
-    // &.overlay-header{
-    //     z-index: unset;
-    // }
+    }
+
+    &.overlay-header {
+        background-color: var(--neu-100);
+        backdrop-filter: none;
+
+        .cta {
+            opacity: 0;
+            visibility: hidden;
+        }
+    }
 
     .wrapper {
         .menu-alignment();
         justify-content: space-between;
         position: relative;
     }
+
+    .cta {
+        @media @max768 {
+            display: none;
+        }
+
+        @media @max1024 {
+            flex: 1;
+            text-align: end;
+        }
+    }
 }
 
 .site-logo {
     display: inline-block;
-    // margin-left: 17px;
-    width: 170px;
+    width: 100px;
     margin-bottom: 0;
     position: relative;
     z-index: 65;
 
-    @media @min768 {
-        width: 270px;
-    }
-
-    @media @min1024 {
-        // margin-left: 68px;
-        width: auto;
-    }
-
     svg {
-        width: 200px;
+        width: 100%;
         display: block;
-
-        @media @min768 {
-            width: 270px;
-        }
-
-        @media @min1024 {
-            width: auto;
-        }
+        height: auto;
+        transition: all 0.3s ease-in-out;
     }
-
-    // img {
-    //     width: 69px;
-    //     @media @min1024 {
-    //         width: auto;  
-    //     }
-    // }
-
-    // if you want to slide menu from roght to left
-    // svg{
-    //     rect{
-    //         fill: green;
-    //         transition: 2s ease fill;
-    //     }
-    //     &.color{
-    //         rect{
-    //             fill: red;
-    //         }
-    //     }
-    // }
 }
 
 .nav-main {
-    // float: right;
-    // margin-top: 17px;
     display: none;
 
     @media @min1024 {
         display: inline-block;
     }
 
-    ul {
+    // ==========================================
+    // MAIN NAVIGATION
+    // ==========================================
+    >ul {
         .menu-alignment();
 
         >li {
             display: inline-block;
-            // margin-left: 28px;
+            position: relative;
+            cursor: pointer;
 
-            // @media @min1500 {
-            //     margin-left: 64px;
-            // }
+            // ==========================================
+            // FIRST DROPDOWN
+            // ==========================================
+            >ul {
+                position: absolute;
+                top: 100%;
+                left: -10%;
+                // transform: translateX(-50%);
+                width: 310px;
+                .dark();
+                border-radius: 2%;
+                padding: 0;
+                margin-top: 15px;
+                max-height: 0;
+                opacity: 0;
+                visibility: hidden;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+                transition:
+                    width 0.35s ease,
+                    max-height 0.4s ease,
+                    opacity 0.3s ease,
+                    visibility 0.3s ease,
+                    padding 0.3s ease;
 
-            // > ul {
-            //     display: none;
-            // }
+                // ==========================================
+                // FIRST LEVEL ITEMS
+                // ==========================================
+                >li {
+                    display: block;
+                    width: 100%;
+                    position: relative;
 
-            a {
-                color: var(--black);
-                text-decoration: none;
+                    >a {
+                        display: block;
+                        width: 100%;
+                        padding: 16px 40px;
+                        color: var(--white);
+                        font-family: var(--font-primary);
+                        font-weight: 700;
+                        font-size: 18px;
+                        line-height: 30px;
+                        transition: color 0.2s ease;
+
+                        &:hover {
+                            color: var(--pri-400);
+                        }
+                    }
+
+                    // ======================================
+                    // SUB-SUB MENU
+                    // ======================================
+                    >ul {
+                        display: none;
+                    }
+
+                    // ======================================
+                    // WHEN ITEM HAS CHILDREN
+                    // ======================================
+                    &.has-children {
+                        >a {
+                            position: relative;
+                        }
+                    }
+                }
+            }
+
+            // ==========================================
+            // MAIN NAV LINK
+            // ==========================================
+            >a {
+                color: var(--white);
                 font-family: var(--font-primary);
-                font-weight: 500;
-                font-size: 16px;
+                font-weight: 700;
+                font-size: 20px;
+                line-height: 28px;
+                transition: color 0.2s ease;
 
                 &:hover {
-                    color: var(--pri-500);
+                    color: var(--pri-400);
+                }
+            }
+
+            // ==========================================
+            // OPEN FIRST DROPDOWN
+            // ==========================================
+            &:hover {
+                >a {
+                    color: var(--pri-400);
+                }
+
+                >ul {
+                    max-height: 1000px;
+                    opacity: 1;
+                    visibility: visible;
+                    padding: 24px 0px;
+                    box-sizing: border-box;
+                }
+            }
+
+            // ==========================================
+            // EXPAND DROPDOWN WHEN CHILDREN ARE HOVERED
+            // ==========================================
+            &:has(> ul > li.has-children:hover) {
+                >ul {
+                    width: 770px;
+                }
+            }
+
+            // ==========================================
+            // EXPANDED SUBMENU CONTENT
+            // ==========================================
+            &:has(> ul > li.has-children:hover) {
+                >ul {
+                    >li.has-children {
+                        >ul {
+                            display: grid;
+                            grid-template-columns: 1fr;
+                            // grid-auto-flow: row;
+                            position: absolute;
+                            top: 0;
+                            right: 0;
+                            width: calc(100% - 335px);
+                            // height: 100%;
+                            padding: 25px 30px;
+                            margin: 0;
+                            border-left: 1px solid rgba(255, 255, 255, 0.25);
+                            gap: 0 30px;
+                            align-content: start;
+
+                            // overflow-y: auto;
+                            >li {
+                                display: block;
+                                width: 100%;
+
+                                >a {
+                                    display: block;
+                                    padding: 14px 0;
+                                    color: var(--white);
+                                    font-family: var(--font-primary);
+                                    font-weight: 400;
+                                    font-size: 16px;
+                                    line-height: 28px;
+                                    transition: color 0.2s ease;
+
+                                    &:hover {
+                                        color: var(--pri-400);
+                                    }
+                                }
+                            }
+                        }
+
+                        // Highlight Locations
+                        >a {
+                            color: var(--pri-400);
+                        }
+                    }
+
+                    // 7–12 submenu items
+                    >li.has-children.submenu-2-columns {
+                        >ul {
+                            grid-template-columns: repeat(2, minmax(0, 1fr));
+                        }
+                    }
+
+                    // 13+ submenu items
+                    >li.has-children.submenu-3-columns {
+                        >ul {
+                            grid-template-columns: repeat(3, minmax(0, 1fr));
+                        }
+                    }
                 }
             }
         }
@@ -918,12 +1003,14 @@ footer {
 
                 svg {
                     transition: all .3s ease-in-out;
+
                     path {
                         transition: all .3s ease-in-out;
                         fill: var(--white);
                     }
                 }
-                a{
+
+                a {
                     &:hover {
                         svg {
                             path {
@@ -1024,8 +1111,9 @@ footer {
             margin: 0;
             color: var(--white);
         }
-        a{
-            &:hover{
+
+        a {
+            &:hover {
                 color: var(--pri-400);
             }
         }

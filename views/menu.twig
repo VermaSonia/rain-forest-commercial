@@ -1,11 +1,23 @@
 {% if menu and items %}
-	<ul>
-		{% for item in items %}
-			<li class="{{ item.classes | join(' ')}}">
-				{# <a target="{{ item.target}}" href="{{ item.link}}">{{ item.title}}</a> #}
-				<a target="_self" href="{{ item.link}}"  aria-label="link to {{item.title}}">{{ item.title}}</a>
-				{% include "menu.twig" with{'items':item.children} %}
-			</li>
-		{% endfor %}
-	</ul>
+    <ul>
+        {% for item in items %}
+            <li class="{{ item.classes | join(' ') }}{% if item.children %} has-children{% endif %}{% if item.children|length > 12 %} submenu-3-columns{% elseif item.children|length > 6 %} submenu-2-columns{% endif %}">
+
+                <a
+                    target="_self"
+                    href="{{ item.link }}"
+                    aria-label="link to {{ item.title }}"
+                >
+                    {{ item.title }}
+                </a>
+
+                {% if item.children %}
+                    {% include "menu.twig" with {
+                        'items': item.children
+                    } %}
+                {% endif %}
+
+            </li>
+        {% endfor %}
+    </ul>
 {% endif %}
