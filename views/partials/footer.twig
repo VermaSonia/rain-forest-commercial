@@ -7,27 +7,33 @@
 				</a>
 				{% include 'partials/social-media.twig' %}
 			</div>
-            <div class="location-menu-details">
-                <div class="location-details">
-                    <h2 class="title white h6">Locations</h2>
-                    <div class="wrapper">
-                        {% for item in options.locations %}
-                            <div class="details">
-                                <p class="address white">{{item.address}}</p>
-                                <p class="license white">{{item.license_details}}</p>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-                <div class="footer-menu">
+			<div class="location-menu-details">
+				<div class="location-details">
+					<h2 class="title white h6">Locations</h2>
+					<div class="wrapper">
+						{% for item in options.locations %}
+							<div class="details">
+								<p class="address white">{{item.address}}</p>
+								<p class="license white">{{item.license_details}}</p>
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+				<div class="footer-menu">
 					<div class="min-pages-menu">
-						{% include "menu.twig" with{'items':pages.get_items} %}
+						<h2 class="title white h6">Main Pages</h2>
+						<nav id="pages_navigation" class="pages_menu" role="navigation">
+							{% include "menu.twig" with{'items':pages_menu.get_items} %}
+						</nav>
 					</div>
 					<div class="services-menu">
-						{% include "menu.twig" with{'items':services.get_items} %}
+						<h2 class="title white h6">Services</h2>
+						<nav id="services_navigation" class="services_menu" role="navigation">
+							{% include "menu.twig" with{'items':services_menu.get_items} %}
+						</nav>
 					</div>
-                </div>
-            </div>
+				</div>
+			</div>
 		</div>
 		<div class="copyright center">
 			<div class="left-content">

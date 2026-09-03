@@ -100,11 +100,22 @@ class StarterSite extends Timber\Site
 		if ( ! is_array( $context ) ) {
 			$context = [];
 		}
-		$content['menu'] = Timber::get_menu();
-		$content['pages'] = Timber::get_menu('pages');
-		$content['services'] = Timber::get_menu('services');
+		$context['menu'] = Timber::get_menu();
+		$context['pages_menu'] = Timber::get_menu('pages');
+		$context['services_menu'] = Timber::get_menu('services');
 		$context['site']  = $this;
 		return $context;
+	}
+
+	/**
+	 * Regsiter Nav Menus
+	 */
+	public function theme_register_nav_menus() {
+		register_nav_menus( array(
+			'primary_menu' => esc_html__( 'Primary Menu', 'rfcomm' ),
+			'services' => esc_html__( 'Services Menu', 'rfcomm' ),
+			'pages' => esc_html__( 'Pages Menu', 'rfcomm' ),
+		) );		
 	}
 
 
@@ -276,16 +287,7 @@ class StarterSite extends Timber\Site
 		add_theme_support( 'menus' );
 	}
 
-	/**
-	 * Regsiter Nav Menus
-	 */
-	public function theme_register_nav_menus() {
-		register_nav_menus( array(
-			'primary_menu' => esc_html__( 'Primary Menu', 'rfcomm' ),
-			'services' => esc_html__( 'Services Menu', 'rfcomm' ),
-			'pages' => esc_html__( 'Pages Menu', 'rfcomm' ),
-		) );		
-	}
+	
 
 	/**
 	 * Regsiter ACF Options Page

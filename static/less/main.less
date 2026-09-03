@@ -178,21 +178,22 @@
         padding-bottom: 100px;
 
         h1 {
+            color: var(--neu-500);
             .font-size(180, 80);
             text-shadow:
-                1px 1px 1px var(--pri-100),
-                2px 2px 1px var(--pri-100),
-                3px 3px 1px var(--pri-100),
-                4px 4px 1px var(--pri-100),
-                5px 5px 1px var(--pri-100),
-                6px 6px 1px var(--pri-100),
-                7px 7px 1px var(--pri-100),
-                8px 8px 1px var(--pri-100),
+                1px 1px 1px var(--neu-100),
+                2px 2px 1px var(--neu-100),
+                3px 3px 1px var(--neu-100),
+                4px 4px 1px var(--neu-100),
+                5px 5px 1px var(--neu-100),
+                6px 6px 1px var(--neu-100),
+                7px 7px 1px var(--neu-100),
+                8px 8px 1px var(--neu-100),
                 25px 25px 8px rgba(0, 0, 0, 0.2);
         }
 
         h3 {
-            color: var(--pri-500);
+            color: var(--neu-100);
         }
 
     }
@@ -893,7 +894,20 @@ footer {
     }
 
     .contact-info {
+        .display-flex(flex, var(--space-40), column, center);
+        justify-content: space-between;
+
+        @media @min768 {
+            flex-direction: row;
+            gap: var(--space-24);
+            align-items: flex-start;
+        }
+
         .logo {
+            @media @min768 {
+                flex: 1;
+            }
+
             .display-flex(flex, 28px, column, center);
 
             .social-media {
@@ -903,19 +917,86 @@ footer {
                 align-items: center;
 
                 svg {
+                    transition: all .3s ease-in-out;
                     path {
+                        transition: all .3s ease-in-out;
                         fill: var(--white);
+                    }
+                }
+                a{
+                    &:hover {
+                        svg {
+                            path {
+                                fill: var(--pri-400);
+                            }
+                        }
                     }
                 }
             }
         }
 
+        .location-menu-details {
+            .display-flex(flex, var(--space-40), column, flex-start);
+            justify-content: space-between;
+
+            @media @min768 {
+                flex: 2;
+            }
+
+            @media @min992 {
+                flex-direction: row;
+                flex: 3;
+            }
+        }
+
         .location-details {
+            flex: 1;
+
+            @media @max768 {
+                text-align: center;
+            }
+
             .wrapper {
                 .details {
                     margin-top: var(--space-sm);
+
                     p {
                         font-size: 14px;
+                    }
+                }
+            }
+        }
+
+        .footer-menu {
+            display: none;
+            flex: 2;
+
+            @media @min768 {
+                .display-flex(flex, var(--space-24), row, flex-start);
+                justify-content: space-between;
+                width: 100%;
+            }
+
+            .min-pages-menu,
+            .services-menu {
+                flex: 1;
+
+                nav {
+                    margin-top: var(--space-sm);
+
+                    ul {
+                        list-style: none;
+                        .display-flex(flex, var(--space-xs), column, flex-start);
+
+                        li {
+                            a {
+                                color: var(--white);
+
+                                &:hover {
+                                    color: var(--pri-400);
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -942,6 +1023,11 @@ footer {
             width: auto;
             margin: 0;
             color: var(--white);
+        }
+        a{
+            &:hover{
+                color: var(--pri-400);
+            }
         }
 
         .site-by a {
