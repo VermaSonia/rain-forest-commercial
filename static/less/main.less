@@ -373,37 +373,50 @@ body {
 
     .overlay-nav-main {
         margin-block-start: var(--space-40);
+        width: 100%;
+        overflow: hidden;
 
         .overlay-menu {
             position: relative;
             text-align: left;
+            width: 100%;
+            overflow: hidden;
         }
 
-        ul {
+        ul.menu-level {
             list-style: none;
             padding: 0;
             margin: 0 auto;
-            display: inline-block;
+            display: block;
             position: relative;
-            height: 100%;
+            height: auto;
+            width: 100%;
 
             >li {
                 display: block;
                 position: relative;
                 opacity: 0;
                 margin: 0;
+                animation: none;
+                width: 100%;
 
-                a {
-                    display: block;
+                >a {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
                     position: relative;
+                    width: 100%;
+                    padding: 16px 0;
                     color: var(--white);
                     text-decoration: none;
                     overflow: hidden;
-                    .font-size(60, 40);
+                    font-size: 18px;
+                    line-height: 26px;
                     text-transform: none;
                     margin-top: 0px;
-                    font-weight: 400;
+                    font-weight: 700;
                     margin-bottom: 0;
+                    font-family: var(--font-primary);
 
                     &:hover {
                         opacity: 1;
