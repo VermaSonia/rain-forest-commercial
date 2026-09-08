@@ -1,4 +1,4 @@
-{% for hero in field.meta('hero') %}
+{% for hero in field.meta('comp') %}
 	{% if hero.acf_fc_layout == 'hero_section' %}
 		<div class="hero">
 			<img class="img-responsive" src="{{get_image(hero.image).src}}" alt="{{get_image(hero.image).alt}}"/>

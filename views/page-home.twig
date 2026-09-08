@@ -2,7 +2,9 @@
 
 {% block content %}
     <section class="{{field.slug}}-page" id="{{field.slug}}-page">
-
+        {% include "components/our-credentials.twig" %}
+        {% include "components/section-trust.twig" %}
+        {% include "components/section_cta.twig" %}
     </section>
 
 {% endblock %}

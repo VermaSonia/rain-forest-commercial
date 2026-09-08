@@ -115,7 +115,15 @@
     margin-block: 100px;
   }
 }
-
+.section-small-top{
+  margin-top: var(--space-md);
+}
+.section-medium-top{
+  margin-top: var(--space-48);
+}
+// .section.large-top{
+//   margin-top: var(--space-lg);
+// }
 // ========================================================================== //
 // Flex
 // ========================================================================== //
@@ -158,48 +166,12 @@ iframe {
   height: 100%;
 }
 
-// svg dimentions
-// .s-40{
-//   height: 40px;
-//   width: 40px;
-// }
+.content {
+  p:not(:first-child) {
+    margin-top: var(--space-sm);
 
-// .s-100{
-//   height: 100px;
-//   width: 100px;
-// }
-
-// .content {
-//   p:not(:first-child) {
-//     margin-top: var(--space-sm);
-
-//     @media @min992 {
-//       margin-top: var(--space-24);
-//     }
-//   }
-// }
-
-// .content-center {
-//   @media @min768 {
-//     .center();
-//   }
-// }
-
-// // for gradient
-// .position-index {
-//   z-index: 2;
-//   position: relative;
-// }
-
-// .grad {
-//   position: relative;
-
-//   &::after {
-//     content: '';
-//     position: absolute;
-//     inset: 0;
-//     width: 100%;
-//     display: block;
-//     z-index: 1;
-//   }
-// }
+    @media @min992 {
+      margin-top: var(--space-24);
+    }
+  }
+}

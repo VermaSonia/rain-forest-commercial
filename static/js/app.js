@@ -15,6 +15,20 @@ jQuery(document).ready(function ($) {
     $('#toggle').click();
   });
 
+
+  //form-modal -- Request a Proposal Button
+  $('.modal-trigger').click(function (e) {
+    e.preventDefault();
+    $('#form-modal').toggleClass('open');
+    $('html').toggleClass('hidden');
+  });
+$('#form-modal').click(function (e) {
+    if ($(e.target).is('#form-modal')) {
+        $('#form-modal').removeClass('open');
+        $('html').removeClass('hidden');
+    }
+});
+
   // AOS.init({
   //   startEvent: 'DOMContentLoaded',
   //   duration: 1000,
@@ -105,7 +119,7 @@ jQuery(document).ready(function ($) {
   });
 
 
-  $(window).resize(function() {
+  $(window).resize(function () {
     fixedHeaderOnScroll();
   });
 
@@ -128,48 +142,35 @@ jQuery(document).ready(function ($) {
 
 
   //Slick SLider
-  // $('.slider').slick({
-  //   dots: false,
-  //   centerMode: true,
-  //   infinite: true,
-  //   arrows: true,
-  //   slidesToShow: 4.67,
-  //   responsive: [
-  //     {
-  //       breakpoint: 1500,
-  //       settings: {
-  //         slidesToShow: 3,
-  //         slidesToScroll: 3,
-  //         infinite: true,
-  //       }
-  //     },
-  //     {
-  //       breakpoint: 1024,
-  //       settings: {
-  //         slidesToShow: 2,
-  //         slidesToScroll: 2,
-  //         infinite: true,
-  //       }
-  //     },
-  //     {
-  //       breakpoint: 600,
-  //       settings: {
-  //         slidesToShow: 2,
-  //         slidesToScroll: 2
-  //       }
-  //     },
-  //     {
-  //       breakpoint: 480,
-  //       settings: {
-  //         slidesToShow: 1,
-  //         slidesToScroll: 1
-  //       }
-  //     }
-  //     // You can unslick at a given breakpoint now by adding:
-  //     // settings: "unslick"
-  //     // instead of a settings object
-  //   ]
-  // });
-
-
+  $('.logo-slider').slick({
+    autoplay: true,
+    autoplaySpeed: 0,
+    speed: 5000,
+    arrows: false,
+    swipe: false,
+    slidesToShow: 8,
+    cssEase: 'linear',
+    pauseOnFocus: false,
+    pauseOnHover: true,
+    responsive: [
+      {
+        breakpoint: 1400,
+        settings: {
+          slidesToShow: 7,
+        }
+      },
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 5,
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 3,
+        }
+      }
+    ]
+  });
 });

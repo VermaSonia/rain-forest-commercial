@@ -86,11 +86,19 @@ class StarterSite extends Timber\Site
 		add_action('init', array( $this, 'remove_comment_support'), 100);
 		add_action( 'wp_before_admin_bar_render', array( $this, 'mytheme_admin_bar_render') );
 		add_action( 'add_attachment', array( $this, 'my_set_image_meta_upon_image_upload') );
+		add_filter('gform_submit_button_1', array( $this,'register_form_btn'), 10,2 );
 
 		parent::__construct();
 	}
 
-	
+	public function register_form_btn ($button, $form) {
+    	return '<button type="submit" class="gform_button submit-btn">
+					Submit <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+					<path d="M4.6665 4.66602H11.3332V11.3327" stroke="white" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+					<path d="M4.6665 11.3327L11.3332 4.66602" stroke="white" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+				</button>';
+	}
 	/** This is where you add some context
 	 *
 	 * @param string $context context['this'] Being the Twig's {{ this }}.

@@ -1,0 +1,16 @@
+{% for page in field.meta('comp') %}
+	{% if page.acf_fc_layout == 'cta_section' %}
+		<section class="section-cta" id="section-cta">
+				<div class="img-content">
+					<img src="{{get_image(page.image).src}}" alt="{{get_image(page.image).src}}" class="img-responsive">
+				</div>
+				<div class="text-content padding-lr">
+					<div class="text-container">
+						<h2 class="white center">{{page.title }}</h2>
+						<div class="content center white">{{page.content}}</div>
+						<a class="primary-btn modal-trigger" href="{{site.url}}">Request a Proposal</a>
+					</div>
+				</div>
+		</section>
+	{% endif %}
+{% endfor %}

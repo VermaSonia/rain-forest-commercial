@@ -1,0 +1,23 @@
+{% for page in field.meta('comp') %}
+	{% if page.acf_fc_layout == 'section_trust' %}
+		<section class="section-trust padding" id="section-trust">
+			<div class="container">
+                <div class="left-content">
+                    <h2 class="charcol title">{{page.title}}</h2>
+                </div>
+                <div class="right-content">
+                    <div class="content">{{page.content}}</div>
+                    <div class="line"></div>
+                    <div class="numbers">
+                        {% for list in page.numbers %}
+                            <div class="list-item">
+                                <h3 class="number h2 charcol">{{list.number}}</h3>
+                                <p class="title">{{list.title}}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+		</section>
+	{% endif %}
+{% endfor %}

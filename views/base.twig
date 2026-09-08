@@ -17,7 +17,7 @@
 				{% include "menu.twig" with{'items':menu.get_items} %}
 			</nav>
 			<div class="cta">
-				<a class="primary-btn modal-trigger-btn" href="javascript:void(0)" aria-label="Request a Proposal">Request a Proposal</a>
+				<a class="primary-btn modal-trigger-btn modal-trigger" href="javascript:void(0)" aria-label="Request a Proposal">Request a Proposal</a>
 			</div>
 			<div class="button_container" id="toggle" data-aos="fade-zoom-in" data-aos-easing="ease-in-back">
 				<span class="top"></span>
@@ -37,6 +37,7 @@
 		</div>
 	</section>
 
+	{% include "components/form-modal.twig" %}
 
 	<div class="overlay padding-lr" id="overlay">
 		<div class="wrapper container">
