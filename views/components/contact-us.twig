@@ -1,7 +1,25 @@
 {% for page in field.meta('comp') %}
-	{% if page.acf_fc_layout == 'section_trust' %}
-		<section class="section-trust padding" id="section-trust">
-			<div class="container"></div>
+	{% if page.acf_fc_layout == 'contact_us_section' %}
+		<section class="contact-us-section padding" id="contact-us-section">
+			<div class="container">
+				<div class="text-container">
+					<h2 class="charcol title">{{ page.title }}</h2>
+					<div class="content">{{ page.content|wpautop }}</div>
+					<div class="cta">
+						<a href="tel:{{ page.cta.phone_number }}" aria-label="call us at {{ page.cta.name }}" class="phone-btn">
+							{{ source(directory ~ '/static/images/icon/phone.svg') }}
+							{{ page.cta.name }}
+						</a>
+					</div>
+				</div>
+				<div class="form-container">
+					<h2 class="h6 charcol title">{{ page.form_title }}</h2>
+					{{ page.form_shortcode|shortcodes }}
+				</div>
+			</div>
 		</section>
 	{% endif %}
 {% endfor %}
+
+
+

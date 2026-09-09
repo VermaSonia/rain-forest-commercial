@@ -1,0 +1,36 @@
+{% for page in field.meta('comp') %}
+    {% if page.acf_fc_layout == 'section_3_cards' %}
+        <section class="service-three-cards padding" id="service-three-cards">
+            <div class="container">
+                <div class="head-container">
+                    <h2 class="charcol center title">{{ page.title }}</h2>
+                    <div class="content center">{{ page.content }}</div>
+                </div>
+                <div class="service-list padding-top stack-cards js-stack-cards">
+                    {% for list in page.cards %}
+                        <div class="content-details dark stack-cards__item js-stack-cards__item">
+                            <div class="img-content">
+                                <img src="{{ get_image(list.image).src }}" alt="{{ get_image(list.image).alt }}" class="img-responsive">
+                            </div>
+                            <div class="text-content">
+                                <div class="logo">
+                                    <img src="{{ get_image(list.logo).src }}" alt="{{ get_image(list.logo).alt }}" class="img-responsive">
+                                </div>
+                                <div class="wrapper">
+                                    <h3 class="h6 white title">{{ list.title }}</h3>
+                                    <div class="content small">{{ list.content }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    {% endif %}
+{% endfor %}
+
+
+
+
+
+

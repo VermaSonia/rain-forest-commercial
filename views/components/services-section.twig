@@ -1,7 +1,36 @@
 {% for page in field.meta('comp') %}
-	{% if page.acf_fc_layout == 'section_trust' %}
-		<section class="section-trust padding" id="section-trust">
-			<div class="container"></div>
+	{% if page.acf_fc_layout == 'services_section' %}
+		<section class="services-section padding" id="services-section">
+			<div class="container">
+				<div class="head-container">
+					<h2 class="charcol title">{{ page.title }}</h2>
+					<div class="content">{{ page.content }}</div>
+				</div>
+				<div class="service-list stack-cards js-stack-cards">
+					{% for list in page.services %}
+						<div class="content-details stack-cards__item js-stack-cards__item">
+							<div class="text-content">
+								<h3 class="h4 charcol title">{{ list.title }}</h3>
+								<div class="content">{{ list.content }}</div>
+								<ul class="list-items">
+									{% for item in list.list %}
+										<li>{{source (directory ~ '/static/images/icon/check-icon.svg') }}{{item.list_item}}</li>
+									{% endfor %}
+								</ul>
+							</div>
+							<div class="img-content">
+								<img src="{{ get_image(list.logo).src }}" alt="{{ get_image(list.logo).alt }}" class="img-responsive">
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
 		</section>
 	{% endif %}
 {% endfor %}
+
+
+
+
+
+
