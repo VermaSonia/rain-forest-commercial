@@ -441,6 +441,8 @@ body {
             height: auto;
             width: 100%;
             gap: var(--space-24);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.3s ease;
 
             >li {
                 display: block;
@@ -487,63 +489,51 @@ body {
 
                 >ul {
                     display: none;
+                    flex-direction: column;
+                    gap: var(--space-24);
+
+                    position: absolute;
+                    inset: 0;
+
+                    width: 100%;
+                    height: 100%;
+
+                    transform: translateX(100%);
+                    opacity: 0;
+
+                    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                        opacity 0.3s ease;
+
+                    overflow-y: auto;
+                }
+            }
+        }
+
+        // When submenu is open
+        .submenu-open {
+
+            >ul {
+                transform: translateX(-30%);
+                opacity: 0;
+            }
+
+            // Show the submenu belonging to the clicked item
+            >ul>li.menu-item-96>ul,
+            >ul>li.menu-item-97>ul {
+                display: flex;
+                transform: translateX(0);
+                opacity: 1;
+
+                li {
+                    a {
+                        color: var(--white);
+                    }
                 }
             }
         }
     }
 }
 
-.overlay-nav-main {
-
-    .overlay-menu {
-        position: relative;
-        overflow: hidden;
-    }
-
-    // Main menu
-    >ul {
-        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-            opacity 0.3s ease;
-    }
-
-    // Submenu
-    ul>li>ul {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-24);
-
-        position: absolute;
-        inset: 0;
-
-        width: 100%;
-        height: 100%;
-
-        transform: translateX(100%);
-        opacity: 0;
-
-        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-            opacity 0.3s ease;
-
-        overflow-y: auto;
-    }
-
-    // When submenu is open
-    &.submenu-open {
-
-        >ul {
-            transform: translateX(-30%);
-            opacity: 0;
-        }
-
-        // Show the submenu belonging to the clicked item
-        >ul>li.menu-item-96>ul,
-        >ul>li.menu-item-97>ul {
-            display: flex;
-            transform: translateX(0);
-            opacity: 1;
-        }
-    }
-}
 
 @keyframes fadeInRight {
     0% {
