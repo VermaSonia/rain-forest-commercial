@@ -9,10 +9,25 @@ jQuery(document).ready(function ($) {
     }
   });
 
-
   // Closes overlay menu after clicking on the menu link
-  $('#site-navigation3 ul li a').on("click", function (e) {
+  // Normal menu links
+  $('#site-navigation3 ul li:not(.menu-item-96):not(.menu-item-97) a').on('click', function () {
     $('#toggle').click();
+  });
+  // Menu item 96 opens submenu
+  $('#site-navigation3 .menu-item-96 > a').on('click', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    $('#site-navigation3').addClass('submenu-open');
+  });
+  $('#site-navigation3 .menu-item-97 > a').on('click', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    $('#site-navigation3').addClass('submenu-open');
+  });
+  // Back button
+  $('.submenu-back').on('click', function () {
+    $(this).closest('nav').removeClass('submenu-open');
   });
 
 
@@ -22,12 +37,12 @@ jQuery(document).ready(function ($) {
     $('#form-modal').toggleClass('open');
     $('html').toggleClass('hidden');
   });
-$('#form-modal').click(function (e) {
+  $('#form-modal').click(function (e) {
     if ($(e.target).is('#form-modal')) {
-        $('#form-modal').removeClass('open');
-        $('html').removeClass('hidden');
+      $('#form-modal').removeClass('open');
+      $('html').removeClass('hidden');
     }
-});
+  });
 
   // AOS.init({
   //   startEvent: 'DOMContentLoaded',
