@@ -1,7 +1,28 @@
 {% for page in field.meta('comp') %}
-	{% if page.acf_fc_layout == 'section_trust' %}
-		<section class="section-trust padding" id="section-trust">
-			<div class="container"></div>
+	{% if page.acf_fc_layout == 'meet_our_experts_section' %}
+	{% set page = page.meet_our_experts %}
+		<section class="meet-our-experts light-bg padding" id="meet-our-experts">
+			<div class="container">
+				<div class="text-container">
+					<div class="text-content">
+						<h2 class="charcol title">{{page.title}}</h2>
+						<div class="content">{{page.content }}</div>
+					</div>					
+				</div>
+				<div class="serving-list section-medium-top">
+					{% for list in page.experts %}
+						<a class="list-item" href="{{list.link}}" aria-label="{{list.title}}">
+							<div class="img-content">
+								<img src="{{get_image(list.image).src}}" alt="{{get_image(list.image).src}}" class="img-responsive">
+							</div>
+							<div class="text-content">
+								<h3 class="charcol h6 title">{{list.title }}</h3>
+								<div class="content small">{{list.position }}</div>
+							</div>
+						</a>
+					{% endfor %}
+				</div>
+			</div>
 		</section>
 	{% endif %}
 {% endfor %}
