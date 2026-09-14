@@ -986,6 +986,7 @@ header {
                     visibility: visible;
                     padding: 24px 0px;
                     box-sizing: border-box;
+                    overflow: visible;
                 }
             }
 
@@ -1018,6 +1019,8 @@ header {
                             border-left: 1px solid rgba(255, 255, 255, 0.25);
                             gap: 0 30px;
                             align-content: start;
+                            z-index: 10;
+                            min-height: 100px;
 
                             // overflow-y: auto;
                             >li {
@@ -1335,7 +1338,7 @@ header {
 
                     img {
                         transition: all .3s ease;
-                        height: 320px;
+                        height: auto;
                         object-fit: cover;
                         object-position: center top;
                         transform: scale3d(1, 1, 1);
@@ -1481,9 +1484,14 @@ header {
             }
 
             @media @min768 {
-                position: sticky;
-                top: 100px;
-                transform-origin: center top;
+                // position: sticky;
+                // top: 100px;
+                // transform-origin: center top;
+
+                // &.stack-cards-finished {
+                //     position: relative;
+                //     top: auto;
+                // }
             }
         }
 
@@ -1491,7 +1499,7 @@ header {
             .grid(1);
             gap: var(--space-md);
 
-            @media @min992 {
+            @media @min1024 {
                 .grid(3);
             }
 
@@ -1505,12 +1513,13 @@ header {
                     transform-origin: center top;
                     height: max-content;
 
-                    @media @min768 {
-                        top: 250px;
-                    }
+                    // @media @min768 {
+                    //     top: 250px;
+                    // }
 
-                    @media @min992 {
-                        top: 300px;
+                    @media @min1024 {
+                        // top: 300px;
+                        top: 150px;
                     }
 
                     &:nth-child(2) {
@@ -1536,9 +1545,17 @@ header {
                     padding: var(--space-24);
                     .display-flex(flex, var(--space-sm), row, flex-start);
 
+                    @media @min1024 {
+                        min-height: 200px;
+                    }
+
                     .content {
                         margin-top: var(--space-xs);
                         color: var(--neu-400);
+                    }
+
+                    .logo {
+                        flex: 0 0 auto;
                     }
                 }
             }
