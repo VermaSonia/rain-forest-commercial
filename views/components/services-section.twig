@@ -1,4 +1,10 @@
-{% for page in field.meta('comp') %}
+{% if post.post_type in ['industry', 'case_studies', 'locations', 'commercial-hvac', 'commercial-plumbing', 'commercial-refrigera', 'commercial-water-hea', 'project-improvement', 'property-maintenance'] %}
+	{% set flex = post.meta('comp') %}
+{% else %}
+	{% set flex = field.meta('comp') %}
+{% endif %}
+
+{% for page in flex %}
 	{% if page.acf_fc_layout == 'services_section' %}
 		<section class="services-section padding" id="services-section">
 			<div class="container">

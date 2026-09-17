@@ -1,16 +1,22 @@
-{% for hero in field.meta('comp') %}
+{% if post.post_type in ['industry', 'case_studies', 'locations', 'commercial-hvac', 'commercial-plumbing', 'commercial-refrigera', 'commercial-water-hea', 'project-improvement', 'property-maintenance'] %}
+	{% set flex = post.meta('comp') %}
+{% else %}
+	{% set flex = field.meta('comp') %}
+{% endif %}
+
+{% for hero in flex %}
 	{% if hero.acf_fc_layout == 'hero_section' %}
 		<div class="hero">
-			<img class="img-responsive" src="{{get_image(hero.image).src}}" alt="{{get_image(hero.image).alt}}"/>
+			<img class="img-responsive" src="{{ get_image(hero.image).src }}" alt="{{ get_image(hero.image).alt }}"/>
 			<div class="wrapper">
 				<div class="container">
 					<div class="text-content">
-						<h1 class="white title">{{hero.title}}</h1>
-						<div class="white content">{{hero.content}}</div>
+						<h1 class="white title">{{ hero.title }}</h1>
+						<div class="white content">{{ hero.content }}</div>
 						<div class="cta">
-							<a href="tel:{{hero.cta.phone_number}}" aria-label="call us at {{hero.cta.name}}" class="phone-btn">
-								{{source (directory ~ '/static/images/icon/phone.svg') }}
-								{{hero.cta.name}}
+							<a href="tel:{{ hero.cta.phone_number }}" aria-label="call us at {{ hero.cta.name }}" class="phone-btn">
+								{{ source(directory ~ '/static/images/icon/phone.svg') }}
+								{{ hero.cta.name }}
 							</a>
 						</div>
 					</div>
