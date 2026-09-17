@@ -1,8 +1,8 @@
 {% extends "base.twig" %} 
 
 {% block content %}
-    <section class="{{field.slug}}-page" id="{{field.slug}}-page">
-  {% include "components/our-credentials.twig" %}
+    <section class="{{ field.slug }}-page" id="{{ field.slug }}-page">
+        {% include "components/our-credentials.twig" %}
         {% include "components/section-trust.twig" %}
         {% include "components/service-3-card.twig" %}
         {% include "components/services-section.twig" %}

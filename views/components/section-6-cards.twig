@@ -1,7 +1,23 @@
 {% for page in field.meta('comp') %}
-	{% if page.acf_fc_layout == 'section_trust' %}
-		<section class="section-trust padding" id="section-trust">
-			<div class="container"></div>
+	{% if page.acf_fc_layout == 'section_6_cards' %}
+		<section class="section-6-cards padding" id="section-6-cards">
+			<div class="container">
+				<div class="head-container">
+					<h2 class="charcol center title">{{ page.title }}</h2>
+					<div class="content center">{{ page.content }}</div>
+				</div>
+				<div class="commitment section-medium-top" id="commitment">
+					{% for list in page.cards %}
+						<div class="list-item">
+							<div class="logo">
+								<img src="{{get_image(list.logo).src}}" alt="{{get_image(list.logo).alt}}" class="img-responsive">
+							</div>
+							<h3 class="charcol title">{{list.title }}</h3>
+							<div class="content charcol">{{list.content }}</div>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
 		</section>
 	{% endif %}
 {% endfor %}
