@@ -781,7 +781,46 @@ div {
     }
 }
 
-
+.visit-btn{
+    display: flex;
+    gap: var(--space-xs);
+    flex-direction: row;
+    align-items: center;
+    font-weight: 700;
+    position: relative;
+    .font-size(18,16);
+    .lh(30px, 24px);
+    margin-top: var(--space-20);
+    transition: all .35s ease-in-out;
+    width: max-content;
+    svg, svg path{
+        transition: all .35s ease-in-out;
+    }
+    &:after{
+        content: '';
+        position: absolute;
+        bottom: 0px;
+        left: 0;
+        right: 0;
+        width: 100%;
+        display: block;
+        height: 1px;
+        background-color: transparent;
+        transition: all .35s ease-in-out;
+    }
+    &:hover{
+        color: var(--pri-300);
+        svg{
+            path{
+                stroke: var(--pri-300);
+            }
+        }
+        &:after{
+            background-color: var(--pri-300)
+        }
+    }
+    
+}
 
 .phone-btn {
     .custom-btn();
@@ -1391,7 +1430,7 @@ header {
 }
 
 .section-four-cards,
-.meet-our-experts {
+.meet-our-experts, .section-10-cards{
     .container {
         .text-container {
             .display-flex(flex, var(--space-md), column, flex-start);
@@ -1481,6 +1520,23 @@ header {
         }
     }
 
+}
+
+#section-10-cards{
+    background: var(--ter-100);
+    .container{
+        .text-container{
+            justify-content: center;
+            align-items: center;
+        }
+        .serving-list{
+            .list-item{
+                .text-content{
+                    background-color: var(--white);
+                }
+            }
+        }
+    }
 }
 
 .services-section {
