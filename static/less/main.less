@@ -1282,30 +1282,31 @@ header {
             }
         }
     }
+
     .statistics-number-wrap-2 {
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-}
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+    }
 
-.statistics-number-box {
-    position: relative;
-    overflow: hidden;
-}
+    .statistics-number-box {
+        position: relative;
+        overflow: hidden;
+    }
 
-.number-track {
-    display: flex;
-    flex-direction: column;
-    will-change: transform;
-}
+    .number-track {
+        display: flex;
+        flex-direction: column;
+        will-change: transform;
+    }
 
-.number-track > .number {
-    flex-shrink: 0;
-}
+    .number-track>.number {
+        flex-shrink: 0;
+    }
 
-.static-character {
-    flex-shrink: 0;
-}
+    .static-character {
+        flex-shrink: 0;
+    }
 }
 
 .section-cta {
@@ -1654,6 +1655,121 @@ header {
 
                     .logo {
                         flex: 0 0 auto;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.testimonial-section {
+    background-color: var(--ter-100);
+    .container {
+        .head-container {
+            .content {
+                margin-top: var(--space-sm);
+
+                @media @min768 {
+                    width: 600px;
+                    margin-inline: auto;
+                }
+            }
+        }
+
+        .testimony-container {
+            .testimony-wrapper {
+                .tesimony-details {
+                    .grid(1);
+                    gap: var(--space-md);
+
+                    @media @min992 {
+                        .grid(2);
+                        align-items: center;
+                    }
+
+                    @media @min1440 {
+                        grid-template-columns: 460px 1fr;
+                        gap: var(--space-xl);
+                    }
+
+                    .main-slider {
+                        .img-content {
+                            overflow: hidden;
+                            height: 100%;
+                        }
+
+                        img {
+                            border-radius: var(--space-sm);
+                        }
+
+                        @media @min992 {
+                            height: 100%;
+                            .slick-list, .slick-track{
+                                height: 100%;
+                            }
+                            img {
+                                height: 100%;
+                                object-fit: cover;
+                                object-position: center;
+                            }
+                        }
+                    }
+
+                    .slider-nav {
+                        @media @min992 {
+                            .width(700px);
+                        }
+
+                        .text-container {
+                            .content {
+                                margin-top: var(--space-sm);
+                            }
+
+                            .line {
+                                width: 100%;
+                                height: 1px;
+                                margin-inline: auto;
+                                background-color: var(--neu-500);
+                                display: block;
+                                margin-block: var(--space-40);
+                                @media @min992{
+                                    max-width: 700px;
+                                }
+                            }
+
+                            .testimony-footer {
+                                .display-flex(flex, var(--space-12), row, flex-end);
+                                justify-content: space-between;
+
+                                .name {
+                                    font-weight: 700;
+                                    font-size: 18px;
+                                }
+
+                                .slider-arrows {
+                                    .display-flex(flex, var(--space-12), row, center);
+
+                                    .slick-arrow {
+                                        cursor: pointer;
+
+                                        svg {
+                                            transition: all .35s ease-in-out;
+
+                                            rect {
+                                                transition: all .35s ease-in-out;
+                                                stroke: var(--neu-500);
+                                            }
+                                        }
+
+                                        &:hover {
+                                            svg rect {
+                                                stroke: var(--neu-100);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }

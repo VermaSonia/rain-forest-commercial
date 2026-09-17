@@ -1,7 +1,129 @@
 {% for page in field.meta('comp') %}
-	{% if page.acf_fc_layout == 'section_trust' %}
-		<section class="section-trust padding" id="section-trust">
-			<div class="container"></div>
+	{% if page.acf_fc_layout == 'testimonials_section' %}
+		{% set page = page.testimonails %}
+		<section class="testimonial-section padding" id="testimonial-section">
+			<div class="container">
+				<div class="head-container">
+					<h2 class="charcol center title">{{ page.title }}</h2>
+					<div class="content center">{{ page.content }}</div>
+				</div>
+				{% if page.testimony is not empty %}
+					<div class="testimony-container section-medium-top">
+						<div class="testimony-wrapper">
+							<div class="tesimony-details">
+								<div class="main-slider">
+									{% for list in page.testimony %}
+										<div class="img-content">
+											{% if list.image %}
+												<img src="{{ get_image(list.image).src }}" alt="{{ get_image(list.image).alt }}" class="img-responsive">
+											{% else %}
+												<img src="{{ site.theme.link }}/static/images/testimony.jpg" alt="workers loading Commercial Machinery" class="img-responsive">
+											{% endif %}
+										</div>
+									{% endfor %}
+								</div>
+								<div class="slider-nav">
+									{% for list in page.testimony %}
+										<div class="text-container">
+											{% if list.title %}
+												<h3 class="h5 charcol">"{{ list.title }}""</h3>
+											{% else %}
+												<h3 class="h5 charcol">“Trusted Commercial Service You Can Depend On”</h3>
+											{% endif %}
+											{% if list.content is not empty %}
+												<div class="content">{{ list.content }}</div>
+											{% else %}
+												<div class="content">Rainforest Plumbing & Air has been a dependable partner for our commercial properties. Their team is responsive, professional, and consistently delivers quality plumbing and HVAC service with minimal disruption to our tenants and operations. We appreciate their communication, fast response times, and commitment to getting the job done right.</div>
+											{% endif %}
+											<div class="line"></div>
+											<div class="testimony-footer">
+												<div class="content-details">
+													{% if list.name is not empty %}
+														<p class="name charcol">{{ list.name }}</p>
+													{% else %}
+														<p class="name charcol">Carlos Rivera</p>
+													{% endif %}
+													{% if list.position is not empty %}
+														<p class="position charcol">{{ list.position }}</p>
+													{% else %}
+														<p class="position charcol">Construction Supervisor</p>
+													{% endif %}
+												</div>
+												{% if loop.lenth != 1 %}
+													<div class="slider-arrows">
+														<div class="prevArrow transform">
+															{{ source(directory ~ '/static/images/icon/slider-arrow.svg') }}
+														</div>
+
+														<div class="nextArrow">
+															{{ source(directory ~ '/static/images/icon/slider-arrow.svg') }}
+														</div>
+													</div>
+												{% endif %}
+											</div>
+										</div>
+									{% endfor %}
+								</div>
+							</div>
+						</div>
+					</div>
+				{% else %}
+					<div class="testimony-container section-medium-top">
+						<div class="testimony-wrapper">
+							<div class="tesimony-details">
+								<div class="main-slider">
+									<div class="img-content">
+										<img src="{{ site.theme.link }}/static/images/testimony.jpg" alt="workers loading Commercial Machinery" class="img-responsive">										
+									</div>
+									<div class="img-content">
+										<img src="{{ site.theme.link }}/static/images/testimony.jpg" alt="workers loading Commercial Machinery" class="img-responsive">										
+									</div>
+								</div>
+								<div class="slider-nav">
+									<div class="text-container">
+										<h3 class="h5 charcol">“Trusted Commercial Service You Can Depend On”</h3>
+										<div class="content">Rainforest Plumbing & Air has been a dependable partner for our commercial properties. Their team is responsive, professional, and consistently delivers quality plumbing and HVAC service with minimal disruption to our tenants and operations. We appreciate their communication, fast response times, and commitment to getting the job done right.</div>
+										<div class="line"></div>
+										<div class="testimony-footer">
+											<div class="content-details">
+												<p class="name charcol">Carlos Rivera</p>
+												<p class="position charcol">Construction Supervisor</p>
+											</div>
+											<div class="slider-arrows">
+												<div class="prevArrow transform">
+													{{ source(directory ~ '/static/images/icon/slider-arrow.svg') }}
+												</div>
+												<div class="nextArrow">
+													{{ source(directory ~ '/static/images/icon/slider-arrow.svg') }}
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="text-container">
+										<h3 class="h5 charcol">“Trusted Commercial Service You Can Depend On”</h3>
+										<div class="content">Rainforest Plumbing & Air has been a dependable partner for our commercial properties. Their team is responsive, professional, and consistently delivers quality plumbing and HVAC service with minimal disruption to our tenants and operations. We appreciate their communication, fast response times, and commitment to getting the job done right.</div>
+										<div class="line"></div>
+										<div class="testimony-footer">
+											<div class="content-details">
+												<p class="name charcol">Carlos Rivera</p>
+												<p class="position charcol">Construction Supervisor</p>
+											</div>
+											<div class="slider-arrows">
+												<div class="prevArrow transform">
+													{{ source(directory ~ '/static/images/icon/slider-arrow.svg') }}
+												</div>
+												<div class="nextArrow">
+													{{ source(directory ~ '/static/images/icon/slider-arrow.svg') }}
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endif %}
+			</div>
 		</section>
 	{% endif %}
 {% endfor %}
