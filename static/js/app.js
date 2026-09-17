@@ -15,19 +15,39 @@ jQuery(document).ready(function ($) {
     $('#toggle').click();
   });
   // Menu item 96 opens submenu
-  $('#site-navigation3 .menu-item-96 > a').on('click', function (e) {
+  // $('#site-navigation3 .menu-item-96 > a').on('click', function (e) {
+  //   e.preventDefault();
+  //   e.stopPropagation();
+  //   $('#site-navigation3').addClass('submenu-open');
+  // });
+  // $('#site-navigation3 .menu-item-97 > a').on('click', function (e) {
+  //   e.preventDefault();
+  //   e.stopPropagation();
+  //   $('#site-navigation3').addClass('submenu-open');
+  // });
+
+  // Open any menu item that has children
+  $('#site-navigation3').on('click', 'li.has-children > a', function (e) {
+
     e.preventDefault();
     e.stopPropagation();
+
+    const $item = $(this).parent('li');
     $('#site-navigation3').addClass('submenu-open');
+    // Close sibling submenus
+    $item
+      .siblings('.is-open')
+      .removeClass('is-open');
+
+    // Open / close this submenu
+    $item.toggleClass('is-open');
+
   });
-  $('#site-navigation3 .menu-item-97 > a').on('click', function (e) {
-    e.preventDefault();
-    e.stopPropagation();
-    $('#site-navigation3').addClass('submenu-open');
-  });
+
+
   // Back button
   $('.submenu-back').on('click', function () {
-    $(this).closest('nav').removeClass('submenu-open');
+    $(this).closest('nav').removeClass('is-open');
   });
 
 
@@ -188,6 +208,198 @@ jQuery(document).ready(function ($) {
       }
     ]
   });
+
+////////////////////////////////////
+// ================================
+// STATISTICS NUMBER ANIMATION
+// ================================
+
+function buildNumber($wrap) {
+
+    var value = String($wrap.attr('data-number') || '').trim();
+
+    if (!value || $wrap.children().length) {
+        return;
+    }
+
+    $.each(value.split(''), function (index, char) {
+
+        // NUMBER
+        if (/\d/.test(char)) {
+
+            var target = parseInt(char, 10);
+
+            var $box = $('<div>', {
+                class: 'statistics-number-box ' +
+                    (index % 2 === 0 ? 'upper' : 'lower')
+            });
+
+            var $track = $('<div>', {
+                class: 'number-track'
+            });
+
+            // Create numbers from 0 to target
+            for (var i = 0; i <= target; i++) {
+
+                $('<div>', {
+                    class: 'heading-02 h2 number charcol',
+                    text: i
+                }).appendTo($track);
+
+            }
+
+            $track.appendTo($box);
+            $box.appendTo($wrap);
+
+        }
+
+        // STATIC CHARACTERS: + K /
+        else {
+
+            $('<div>', {
+                class: 'heading-02 h2 number charcol static-character',
+                text: char
+            }).appendTo($wrap);
+
+        }
+
+    });
+}
+
+
+function prepareNumberBox($box) {
+
+    var $track = $box.find('.number-track');
+
+    if (!$track.length) {
+        return;
+    }
+
+    var isLower = $box.hasClass('lower');
+
+    $track.css({
+        display: 'flex',
+        flexDirection: isLower ? 'column-reverse' : 'column'
+    });
+
+    var digitHeight =
+        $track.children().first().outerHeight();
+
+    if (!digitHeight) {
+        return;
+    }
+
+    $box.css({
+        height: digitHeight + 'px',
+        overflow: 'hidden'
+    });
+
+    var count = $track.children().length;
+
+    var startY = isLower
+        ? -(count - 1) * digitHeight
+        : 0;
+
+    var endY = isLower
+        ? 0
+        : -(count - 1) * digitHeight;
+
+    // Initial position
+    $track.css(
+        'transform',
+        'translateY(' + startY + 'px)'
+    );
+
+    // Save final position
+    $track.attr('data-target-y', endY);
+}
+
+
+function animateNumber($wrap) {
+
+    $wrap.find('.statistics-number-box').each(function (index) {
+
+        var $box = $(this);
+        var $track = $box.find('.number-track');
+
+        if (!$track.length) {
+            return;
+        }
+
+        var targetY =
+            $track.attr('data-target-y');
+
+        $track.css({
+            transition:
+                'transform 1.3s cubic-bezier(0.15, 1, 0.25, 1)',
+            transitionDelay:
+                (index * 90) + 'ms'
+        });
+
+        requestAnimationFrame(function () {
+
+            $track.css(
+                'transform',
+                'translateY(' + targetY + 'px)'
+            );
+
+        });
+
+    });
+}
+
+
+// BUILD ALL NUMBERS
+$('.statistics-number-wrap-2').each(function () {
+
+    buildNumber($(this));
+
+});
+
+
+// PREPARE ALL NUMBER BOXES
+$('.statistics-number-box').each(function () {
+
+    prepareNumberBox($(this));
+
+});
+
+
+// ANIMATE ON SCROLL
+if ('IntersectionObserver' in window) {
+
+    var numberObserver = new IntersectionObserver(
+        function (entries) {
+
+            $.each(entries, function (index, entry) {
+
+                if (entry.isIntersecting) {
+
+                    animateNumber($(entry.target));
+
+                    numberObserver.unobserve(entry.target);
+
+                }
+
+            });
+
+        },
+        {
+            threshold: 0.4
+        }
+    );
+
+
+    $('.statistics-number-wrap-2').each(function () {
+
+        numberObserver.observe(this);
+
+    });
+
+}
+
+// ////////////////////////////////
+
 });
 /****************************************** 
 ***********stacking cards slider***********
