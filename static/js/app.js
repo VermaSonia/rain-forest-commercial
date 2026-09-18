@@ -357,49 +357,44 @@ jQuery(document).ready(function ($) {
   }
   //FAQ
   function initFaqAccordion(sectionSelector) {
-
     var $section = $(sectionSelector);
+    if (!$section.length) {
+      return;
+    }
     var $faqButtons = $section.find('.faq-button');
-
+    if (!$faqButtons.length) {
+      return;
+    }
     // Hide all answers
     $faqButtons.find('.faq-answer').hide();
-
-    // Make first FAQ active and open
+    // Open first item
     $faqButtons
-        .first()
-        .addClass('is-active')
-        .find('.faq-answer')
-        .show();
-
+      .first()
+      .addClass('is-active')
+      .find('.faq-answer')
+      .show();
     // FAQ click
     $faqButtons.on('click', function () {
+      var $current = $(this);
+      // Close other FAQ items
+      $faqButtons
+        .not($current)
+        .removeClass('is-active')
+        .find('.faq-answer')
+        .stop(true, true)
+        .slideUp();
 
-        var $current = $(this);
-
-        // Close other FAQ items in the same section
-        $current
-            .siblings('.faq-button')
-            .removeClass('is-active')
-            .find('.faq-answer')
-            .stop(true, true)
-            .slideUp();
-
-        // Toggle current FAQ item
-        $current
-            .toggleClass('is-active')
-            .find('.faq-answer')
-            .stop(true, true)
-            .slideToggle();
-
+      // Toggle current item
+      $current
+        .toggleClass('is-active')
+        .find('.faq-answer')
+        .stop(true, true)
+        .slideToggle();
     });
-}
+  }
 
-$(function () {
-
-    initFaqAccordion('.expect-section');
-    initFaqAccordion('.another-faq-section');
-
-});
+  initFaqAccordion('.expect-section');
+  initFaqAccordion('.faq-list');
 
 });
 /****************************************** 

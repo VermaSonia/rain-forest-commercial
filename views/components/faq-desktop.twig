@@ -14,7 +14,17 @@
 				</div>
 				<div class="faq-list section-medium-top">
 					{% for list in page.faq %}
-						<div class="list-item"></div>
+						<div class="list-item faq-button">
+							<div class="text-content">
+								<h3 class="faq-question h5 charcol">
+									{{ list.question|lower|capitalize }}
+									{{ source(directory ~ '/static/images/icon/plus.svg') }}
+								</h3>
+								<div class="faq-answer">
+									{{ list.answer|wpautop }}
+								</div>
+							</div>
+						</div>
 					{% endfor %}
 				</div>
 			</div>
