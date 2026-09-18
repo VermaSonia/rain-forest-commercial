@@ -1,4 +1,4 @@
-{% if post.post_type in ['industry', 'case_studies', 'locations', 'commercial-hvac', 'commercial-plumbing', 'commercial-refrigera', 'commercial-water-hea', 'project-improvement', 'property-maintenance'] %}
+{% if post.post_type in ['industry', 'case_studies', 'location', 'commercial-hvac', 'commercial-plumbing', 'commercial-refrigera', 'commercial-water-hea', 'project-improvement', 'property-maintenance'] %}
 	{% set flex = post.meta('comp') %}
 {% else %}
 	{% set flex = field.meta('comp') %}

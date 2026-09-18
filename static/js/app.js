@@ -355,6 +355,51 @@ jQuery(document).ready(function ($) {
       numberObserver.observe(this);
     });
   }
+  //FAQ
+  function initFaqAccordion(sectionSelector) {
+
+    var $section = $(sectionSelector);
+    var $faqButtons = $section.find('.faq-button');
+
+    // Hide all answers
+    $faqButtons.find('.faq-answer').hide();
+
+    // Make first FAQ active and open
+    $faqButtons
+        .first()
+        .addClass('is-active')
+        .find('.faq-answer')
+        .show();
+
+    // FAQ click
+    $faqButtons.on('click', function () {
+
+        var $current = $(this);
+
+        // Close other FAQ items in the same section
+        $current
+            .siblings('.faq-button')
+            .removeClass('is-active')
+            .find('.faq-answer')
+            .stop(true, true)
+            .slideUp();
+
+        // Toggle current FAQ item
+        $current
+            .toggleClass('is-active')
+            .find('.faq-answer')
+            .stop(true, true)
+            .slideToggle();
+
+    });
+}
+
+$(function () {
+
+    initFaqAccordion('.expect-section');
+    initFaqAccordion('.another-faq-section');
+
+});
 
 });
 /****************************************** 

@@ -1,13 +1,32 @@
-{% if post.post_type in ['industry', 'case_studies', 'locations', 'commercial-hvac', 'commercial-plumbing', 'commercial-refrigera', 'commercial-water-hea', 'project-improvement', 'property-maintenance'] %}
+{% if post.post_type in ['industry', 'case_studies', 'location', 'commercial-hvac', 'commercial-plumbing', 'commercial-refrigera', 'commercial-water-hea', 'project-improvement', 'property-maintenance'] %}
 	{% set flex = post.meta('comp') %}
 {% else %}
 	{% set flex = field.meta('comp') %}
 {% endif %}
 
 {% for page in flex %}
-	{% if page.acf_fc_layout == 'section_trust' %}
-		<section class="section-trust padding" id="section-trust">
-			<div class="container"></div>
+	{% if page.acf_fc_layout == 'commercial_services_section' %}
+		<section class="commercial-services padding" id="commercial-services">
+			<div class="container">
+				<div class="head-container">
+					<h2 class="charcol title">{{ page.title }}</h2>
+					<div class="content">{{ page.content }}</div>
+				</div>
+				<div class="service-list stack-cards js-stack-cards">
+					{% for list in page.services_list %}
+						<div class="content-details stack-cards__item js-stack-cards__item">
+							<div class="img-content">
+								<img src="{{ get_image(list.image).src }}" alt="{{ get_image(list.image).alt }}" class="img-responsive">
+							</div>
+							<div class="text-content">
+								<h3 class="h4 charcol title">{{ list.title }}</h3>
+								<div class="content">{{ list.content }}</div>
+								<a href="{{ list.link }}" aria-label="Visit Service Page" class="visit-btn">Visit Service page{{ source(directory ~ '/static/images/icon/arrow-link.svg') }}</a>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
 		</section>
 	{% endif %}
 {% endfor %}
