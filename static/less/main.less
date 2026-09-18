@@ -393,184 +393,195 @@ body {
 
         margin-block-start: var(--space-48);
         width: 100%;
-        overflow: hidden;
-
         border-top: 1px solid var(--neu-300);
         padding-top: var(--space-md);
 
         .overlay-menu {
-            position: relative;
-            text-align: left;
             width: 100%;
-            overflow: hidden;
         }
 
         ul {
             list-style: none;
-            padding: 0;
             margin: 0;
+            padding: 0;
+        }
 
+        ul.menu-level-0 {
             display: flex;
             flex-direction: column;
-
-            position: relative;
-            width: 100%;
-            height: auto;
-
             gap: var(--space-24);
+        }
 
-            transition:
-                transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                opacity 0.3s ease;
+        ul.menu-level-0>li>a,
+        ul.menu-level-1>li>a {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            width: 100%;
+            padding: 6px 0;
 
-            >li {
+            color: var(--white);
+            text-decoration: none;
 
+            font-size: 18px;
+            line-height: 26px;
+            font-weight: 700;
+            font-family: var(--font-primary);
+
+            .arrow {
+                display: none;
+            }
+
+            .chevron {
                 display: block;
-                position: relative;
+                flex: 0 0 auto;
+                cursor: pointer;
+                transition: transform 0.3s ease;
+            }
+        }
 
-                opacity: 1;
-                margin: 0;
+        ul.menu-level-0>li>a {
+            .arrow {
+                display: block;
+            }
+
+            .chevron {
+                display: none;
+            }
+        }
+
+        ul.menu-level-1>li>a .chevron svg {
+            pointer-events: none;
+        }
+
+
+
+        ul.menu-level-0>li>ul {
+            display: none;
+        }
+
+        .submenu-open {
+
+            ul.menu-level-0 {
+                gap: 0;
+            }
+
+            ul.menu-level-0>li {
+                display: none;
+            }
+
+            ul.menu-level-0>li.is-open {
+                display: block;
+                width: 100%;
+            }
+
+            ul.menu-level-0>li.is-open>a {
+                display: none;
+            }
+
+            ul.menu-level-0>li.is-open>ul {
+                display: flex;
+                flex-direction: column;
+                gap: var(--space-24);
                 width: 100%;
 
-                >a {
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-
-                    position: relative;
-                    width: 100%;
-
-                    color: var(--white);
-                    text-decoration: none;
-
-                    font-size: 18px;
-                    line-height: 26px;
-                    font-weight: 700;
-                    font-family: var(--font-primary);
-
-                    .arrow {
-                        display: none;
-                    }
-
-                    .chevron {
-                        display: block;
-                    }
-                }
-
-                /*
-             * Every child submenu starts
-             * outside the screen on the right
-             */
-                >ul {
-                    display: none;
-
-                    flex-direction: column;
-                    gap: var(--space-24);
-
-                    position: fixed;
-
-                    top: 0;
-                    left: 0;
-
-                    width: 100%;
-                    height: 100%;
-
-                    padding: 80px var(--space-md) var(--space-md);
-
-                    background: var(--neu-800);
-
-                    transform: translateX(100%);
-                    opacity: 0;
-
-                    overflow-y: auto;
-
-                    z-index: 20;
-
-                    transition:
-                        transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                        opacity 0.3s ease;
-
-                    >li {
-                        opacity: 1;
-                    }
-                }
+                animation: submenuSlideIn 0.35s cubic-bezier(0.4, 0, 0.2, 1);
             }
         }
 
-
-        /*
-     * FIRST LEVEL
-     *
-     * When submenu-open is added to navigation,
-     * the main menu moves left.
-     */
-        &.submenu-open {
-
-            >.overlay-menu>ul {
-                transform: translateX(-30%);
-                opacity: 0;
-            }
-
-            /*
-         * Open the selected first-level submenu
-         */
-            >.overlay-menu>ul>li.is-open>ul {
-                display: flex;
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
-
-        /*
-     * DEEPER LEVELS
-     *
-     * If any submenu contains an .is-open item,
-     * that current submenu moves left.
-     */
-        ul:has(> li.is-open) {
-
-            >li:not(.is-open) {
-                opacity: 0;
-            }
-        }
-
-
-        /*
-     * The current submenu containing
-     * an open item moves left.
-     */
-        ul:has(> li.is-open) {
-
-            transform: translateX(-30%);
-            opacity: 0;
-        }
-
-
-        /*
-     * The clicked item's child submenu
-     * comes to the front.
-     */
-        ul>li.is-open>ul {
-
+        ul.menu-level-1>li>ul {
             display: flex;
+            flex-direction: column;
+            gap: 20px;
 
-            transform: translateX(0);
-            opacity: 1;
+            max-height: 0;
+            padding: 0;
 
-            z-index: 30;
+            opacity: 0;
+            overflow: hidden;
+
+            transition:
+                max-height 0.4s ease,
+                padding 0.4s ease,
+                opacity 0.3s ease;
         }
 
+        ul.menu-level-1>li.is-open>ul {
+            max-height: 1200px;
+            opacity: 1;
+            padding: var(--space-24) 0 4px;
+        }
 
-        /*
-     * Open item styling
-     */
-        li.is-open>a {
+        ul.menu-level-1>li>ul a {
+            display: block;
+            text-align: center;
+            padding: 2px 0;
 
+            color: var(--white);
+            text-decoration: none;
+
+            font-size: 16px;
+            line-height: 22px;
+            font-weight: 400;
+        }
+
+        ul.menu-level-1>li.is-open>a {
             color: var(--pri-400);
 
             .chevron {
                 transform: rotate(180deg);
+            }
+        }
+
+        // =====================================================
+        // BACK BUTTON
+        // =====================================================
+
+        .submenu-back {
+
+            display: none;
+
+            align-items: center;
+            gap: 10px;
+
+            margin: 0 0 var(--space-24);
+            padding: 0;
+
+            border: 0;
+            background: transparent;
+
+            color: var(--white);
+
+            font-family: var(--font-primary);
+            font-size: 18px;
+            line-height: 26px;
+            font-weight: 700;
+
+            cursor: pointer;
+
+            .back-icon {
+
+                width: 10px;
+                height: 10px;
+
+                border-left: 2px solid var(--white);
+                border-bottom: 2px solid var(--white);
+
+                transform: rotate(45deg);
+            }
+            .back-text{
+                color: var(--white);
+            }
+        }
+
+
+        // Show back button when submenu is open
+
+        #site-navigation3.submenu-open {
+
+            .submenu-back {
+                display: flex;
             }
         }
     }
@@ -1075,7 +1086,7 @@ header {
                     position: relative;
 
                     >a {
-                        display: block;
+                        display: inline-block;
                         width: 100%;
                         padding: 16px 40px;
                         color: var(--white);
@@ -1456,9 +1467,11 @@ header {
                     padding: 0px;
                     .display-flex(flex, var(--space-sm), row, flex-start);
                     transition: all .35s ease-in-out;
-                    .count{
+
+                    .count {
                         margin-top: 3px;
                     }
+
                     .faq-answer {
                         margin-top: 10px;
                     }
@@ -1471,7 +1484,8 @@ header {
                     &.is-active {
                         background-color: var(--ter-100);
                         padding: var(--space-24);
-                        .faq-question{
+
+                        .faq-question {
                             pointer-events: none;
                         }
                     }
@@ -1480,18 +1494,95 @@ header {
         }
     }
 }
-.faq-section{
+
+.faq-section {
     background-color: var(--ter-100);
-    .container{
-        .head-container{
-            
-            .content{
+
+    .container {
+        .head-container {
+
+            .content {
                 margin-top: var(--space-md);
                 .width(670px, auto);
+            }
+
+        }
+
+        .faq-list {
+            background-color: var(--white);
+            border-radius: 16px;
+            padding: var(--space-md);
+
+            @media @min768 {
+                padding: 60px;
+            }
+
+            .list-item {
+                padding-block: var(--space-md);
+
+                &:not(:first-child) {
+                    border-top: 1px solid var(--neu-500);
+                }
+
+                &:first-child {
+                    padding-top: 0px;
+                }
+
+                &:last-child {
+                    padding-bottom: 0px;
+                }
+
+                .faq-answer {
+                    margin-top: var(--space-12);
+                    padding-right: 50px;
+                }
+
+                .faq-question {
+                    cursor: pointer;
+                    .display-flex(flex, var(--space-sm), row, center);
+                    justify-content: space-between;
+
+                    svg,
+                    svg rect,
+                    svg path {
+                        transition: all .35s ease-in-out;
+                    }
+
+                    svg {
+                        flex: 0 0 auto;
+                    }
+                }
+
+                &.is-active {
+                    .faq-question {
+                        svg {
+                            display: flex;
+                            width: 34px;
+                            height: 34px;
+                            justify-content: center;
+                            align-items: center;
+
+                            rect {
+                                fill: var(--pri-300);
+                            }
+
+                            path {
+                                &:nth-of-type(1) {
+                                    stroke: var(--white);
+                                }
+
+                                &:nth-of-type(2) {
+                                    stroke: transparent;
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }
 }
+
 .section-cta {
     position: relative;
 

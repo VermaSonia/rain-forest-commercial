@@ -1,5 +1,6 @@
+{% set depth = depth|default(0) %}
 {% if menu and items %}
-    <ul>
+     <ul class="menu-level-{{ depth }}">
         {% for item in items %}
             <li class="{{ item.classes | join(' ') }}{% if item.children %} has-children{% endif %}{% if item.children|length > 12 %} submenu-3-columns{% elseif item.children|length > 6 %} submenu-2-columns{% endif %}">
                 <a target="_self" href="{{ item.link }}" aria-label="link to {{ item.title }}">
@@ -9,11 +10,8 @@
                         <span class="chevron">{{source (directory ~ '/static/images/icon/down-arrow.svg') }}</span>
                      {% endif %}
                 </a>
-                {% if item.children %}{% include "menu.twig" with {'items': item.children} %}{% endif %}
+                {% if item.children %}{% include "menu.twig" with {'items': item.children, 'depth': depth + 1} %}{% endif %}
             </li>
         {% endfor %}
     </ul>
 {% endif %}
-
-
-

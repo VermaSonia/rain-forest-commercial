@@ -14,42 +14,161 @@ jQuery(document).ready(function ($) {
   $('#site-navigation3 ul li:not(.menu-item-96):not(.menu-item-97) a').on('click', function () {
     $('#toggle').click();
   });
-  // Menu item 96 opens submenu
-  // $('#site-navigation3 .menu-item-96 > a').on('click', function (e) {
-  //   e.preventDefault();
-  //   e.stopPropagation();
-  //   $('#site-navigation3').addClass('submenu-open');
-  // });
-  // $('#site-navigation3 .menu-item-97 > a').on('click', function (e) {
-  //   e.preventDefault();
-  //   e.stopPropagation();
-  //   $('#site-navigation3').addClass('submenu-open');
-  // });
-
-  // Open any menu item that has children
-  $('#site-navigation3').on('click', 'li.has-children > a', function (e) {
-
-    e.preventDefault();
-    e.stopPropagation();
-
-    const $item = $(this).parent('li');
-    $('#site-navigation3').addClass('submenu-open');
-    // Close sibling submenus
-    $item
-      .siblings('.is-open')
-      .removeClass('is-open');
-
-    // Open / close this submenu
-    $item.toggleClass('is-open');
-
-  });
+/////////////////////////////////////////////////////////////
 
 
-  // Back button
-  $('.submenu-back').on('click', function () {
-    $(this).closest('nav').removeClass('is-open');
-  });
+    const $nav = $('#site-navigation3');
+    const navEl = $nav[0];
+    if (!navEl) return;
 
+    // =====================================================
+    // CLEAN UP PREVIOUS BINDINGS (safe if script runs twice)
+    // =====================================================
+    $nav.off('.mobileMenu');
+
+    if (navEl._menuCapture) {
+        window.removeEventListener('click', navEl._menuCapture.click, true);
+        ['mousedown', 'pointerdown', 'touchstart'].forEach(function (evt) {
+            window.removeEventListener(evt, navEl._menuCapture.other, true);
+        });
+    }
+
+    // =====================================================
+    // HELPERS
+    // =====================================================
+    function closeAll() {
+        $nav.removeClass('submenu-open');
+        $nav.find('li.is-open').removeClass('is-open');
+    }
+
+    function toggleAccordion($item) {
+        const wasOpen = $item.hasClass('is-open');
+        $item.siblings('li').removeClass('is-open');
+        $item.toggleClass('is-open', !wasOpen);
+    }
+
+    // Tap position for mouse, pointer and touch events
+    function getX(e) {
+        if (typeof e.clientX === 'number') return e.clientX;
+        if (e.touches && e.touches[0]) return e.touches[0].clientX;
+        return null;
+    }
+
+    // True if the tap landed in the chevron zone on the right of a link
+    // (used when the chevron is a pseudo-element, not a real .chevron)
+    function isInChevronZone(e, anchorEl) {
+        const ZONE = 48; // px width of the chevron tap area, adjust if needed
+        const x = getX(e);
+        if (x === null) return false;
+        return x >= anchorEl.getBoundingClientRect().right - ZONE;
+    }
+
+    // Returns the level-1 <li> if this event hit a level-1 chevron, else null
+    function getChevronItem(e) {
+        if (!e.target || !e.target.closest || !navEl.contains(e.target)) return null;
+
+        // Real .chevron element
+        const chev = e.target.closest('.chevron');
+        if (chev) {
+            const $li = $(chev).closest('li');
+            return $li.parent('ul').hasClass('menu-level-1') ? $li : null;
+        }
+
+        // Pseudo-element chevron (right edge of the link)
+        const a = e.target.closest('ul.menu-level-1 > li.has-children > a');
+        if (a && isInChevronZone(e, a)) {
+            return $(a).parent('li');
+        }
+
+        return null;
+    }
+
+    // =====================================================
+    // CREATE BACK BUTTON
+    // =====================================================
+    if (!$nav.find('.submenu-back').length) {
+        $nav.prepend(`
+            <button type="button" class="submenu-back" aria-label="Back">
+                <span class="back-icon"></span>
+                <span class="back-text">Back</span>
+            </button>
+        `);
+    }
+
+    // =====================================================
+    // CHEVRON (CAPTURE PHASE, RUNS BEFORE EVERYTHING ELSE)
+    // =====================================================
+    // Click: toggle the accordion and block all other handlers.
+    function onChevronClick(e) {
+        const $item = getChevronItem(e);
+        if (!$item) return;
+
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+
+        toggleAccordion($item);
+    }
+
+    // Other events: only stop them from reaching theme "click outside"
+    // handlers. No preventDefault, so the click still fires normally.
+    function onChevronOther(e) {
+        if (getChevronItem(e)) {
+            e.stopPropagation();
+        }
+    }
+
+    navEl._menuCapture = { click: onChevronClick, other: onChevronOther };
+
+    window.addEventListener('click', onChevronClick, true);
+    ['mousedown', 'pointerdown', 'touchstart'].forEach(function (evt) {
+        window.addEventListener(evt, onChevronOther, true);
+    });
+
+    // =====================================================
+    // FIRST LEVEL CLICK (opens the submenu overlay)
+    // =====================================================
+    $nav.on('click.mobileMenu', 'ul.menu-level-0 > li.has-children > a', function (e) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+
+        const $item = $(this).closest('li');
+        $item.siblings('li').removeClass('is-open');
+        $item.addClass('is-open');
+        $nav.addClass('submenu-open');
+
+        return false;
+    });
+
+    // =====================================================
+    // SECOND LEVEL LINK CLICK (text navigates normally)
+    // =====================================================
+    // Chevron taps never reach this handler because the capture
+    // handler above stops them first.
+    $nav.on('click.mobileMenu', 'ul.menu-level-1 > li.has-children > a', function () {
+        closeAll();
+        // No preventDefault: the browser follows the link
+    });
+
+    // =====================================================
+    // THIRD LEVEL LINKS
+    // =====================================================
+    $nav.on('click.mobileMenu', 'ul.menu-level-2 a', function () {
+        closeAll();
+    });
+
+    // =====================================================
+    // BACK BUTTON
+    // =====================================================
+    $nav.on('click.mobileMenu', '.submenu-back', function (e) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        closeAll();
+        return false;
+    });
+
+
+/////////////////////////////////////////////////////////////
 
   //form-modal -- Request a Proposal Button
   $('.modal-trigger').click(function (e) {
