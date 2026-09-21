@@ -1,0 +1,57 @@
+{% if post.post_type in ['industry', 'case-studies', 'location', 'commercial-hvac', 'commercial-plumbing', 'commercial-refrigera', 'commercial-water-hea', 'project-improvement', 'property-maintenance'] %}
+    {% set flex = post.meta('comp') %}
+{% else %}
+    {% set flex = field.meta('comp') %}
+{% endif %}
+
+{% for page in flex %}
+    {% if page.acf_fc_layout == 'commercial_success_stories_section' %}
+        <section class="commercial-success-stories-section padding" id="commercial-success-stories-section">
+            <div class="container">
+                <div class="head-container">
+                    <h2 class="charcol center title">{{ page.title }}</h2>
+                    <div class="content center">{{ page.content }}</div>
+                </div>
+                <div class="stories-list section-medium-top">
+                    {% for list in page.stories %}
+                        <div class="list-item case-study">
+                            <div class="content-grid">                                  
+                                <h2 class="h4 charcol title">{{ list.title }}</h2>
+                                <div class="content">{{ list.content }}</div>
+                                <div class="small-details">
+                                    <p class="industry-type">
+                                        {{ source(directory ~ '/static/images/icon/building.svg') }}{{ list.industry_type }}
+                                    </p>
+                                    <p class="service-type">
+                                        {% if list.service_type == "HVAC" %}
+                                            {{ source(directory ~ '/static/images/icon/hvac.svg') }}
+                                        {% endif %}
+                                        {% if list.service_type == "Plumbing" %}
+                                            {{ source(directory ~ '/static/images/icon/drop.svg') }}
+                                        {% endif %}                                        
+                                        {{ list.service_type }}
+                                    </p>
+                                    <p class="location">
+                                        {{ source(directory ~ '/static/images/icon/pin.svg') }}{{ list.location }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="image-grid">
+                                <img src="{{ get_image(list.image).src }}" alt="{{ get_image(list.image).alt }}" class="img-responsive">
+                            </div>
+                            <div class="project-details">
+                                <h3 class="detail-title charcol">Project details:</h3>
+                                <div class="details">
+                                    {% for item in list.project_details %}
+                                        <div class="item">{{ source(directory ~ '/static/images/icon/check-icon.svg') }}{{ item.list_item }}</div>
+                                    {% endfor %}
+                                </div>
+                                <a href="{{ list.case_study }}" aria-label="{{ list.title }}" class="visit-btn">View More{{ source(directory ~ '/static/images/icon/arrow-link.svg') }}</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    {% endif %}
+{% endfor %}

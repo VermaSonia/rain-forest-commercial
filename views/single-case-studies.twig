@@ -1,8 +1,11 @@
 {% extends "base.twig" %} 
 
 {% block content %}
-    <section class="{{field.slug}}-page" id="{{field.slug}}-page">
-
+    <section class="{{ field.slug }}-page" id="{{ field.slug }}-page">
+        {% include "components/our-credentials.twig" %}
+        {% include "components/case-studies-stories.twig" %}
+        {% include "components/section_cta.twig" %}
+        {% include "components/contact-us.twig" %}
     </section>
 
 {% endblock %}

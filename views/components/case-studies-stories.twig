@@ -1,13 +1,17 @@
-{% if post.post_type in ['industry', 'case_studies', 'location', 'commercial-hvac', 'commercial-plumbing', 'commercial-refrigera', 'commercial-water-hea', 'project-improvement', 'property-maintenance'] %}
+{% if post.post_type in ['industry', 'case-studies', 'location', 'commercial-hvac', 'commercial-plumbing', 'commercial-refrigera', 'commercial-water-hea', 'project-improvement', 'property-maintenance'] %}
 	{% set flex = post.meta('comp') %}
 {% else %}
 	{% set flex = field.meta('comp') %}
 {% endif %}
 
 {% for page in flex %}
-	{% if page.acf_fc_layout == 'section_trust' %}
-		<section class="section-trust padding" id="section-trust">
-			<div class="container"></div>
+	{% if page.acf_fc_layout == 'case_studies' %}
+		<section class="single-case-study-content padding" id="single-case-study-content">
+			<div class="container">
+				<div class="content">
+					{{ page.studies_content|wpautop }}
+				</div>	
+			</div>
 		</section>
 	{% endif %}
 {% endfor %}
