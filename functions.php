@@ -144,7 +144,7 @@ class StarterSite extends Timber\Site
 		echo '
 			<style type="text/css">
 				.login #login h1 a {
-					background-image: url(' . get_stylesheet_directory_uri() . '/static/images/logo_horizontal_reverse.svg);
+					background-image: url(' . get_stylesheet_directory_uri() . '/static/images/logo/header-white-logo.svg);
 					background-size: contain;
 				background-position: center;
 					width: 100%;
@@ -165,7 +165,7 @@ class StarterSite extends Timber\Site
 				}
 		
 				body {
-					background: #1d2327 !important;
+					background: #000!important;
 				}
 				// body{
 					
@@ -178,29 +178,29 @@ class StarterSite extends Timber\Site
 				// }
 		
 				.login #login form {
-					background: #2c3338;
+					background: #343434;
 					border: none;
 					border-radius: 5px;
 				}
 				.login #login form .button-secondary {
-					color: #2c3338;
+					color: #343434;
 					opacity: .7;
 					transition: .3s;
 				}
 		
 				.login #login form input:focus {
-					border-color: #03554b;
-					box-shadow: 0 0 0 1px #03554b;
+					border-color: #464E14;
+					box-shadow: 0 0 0 1px #464E14;
 				}
 				.login #login form .button-primary {
-					background: #03554b;
-					border-color: #03554b;
+					background: #464E14;
+					border-color: #464E14;
 					transition: .3s;
 				}
 		
 				.login #login form .button-primary:hover {
-					background: #012a25;
-					border-color: #012a25;
+					background: #7C4C33;
+					border-color: #7C4C33;
 				}
 			</style>';
 	}
@@ -240,7 +240,7 @@ class StarterSite extends Timber\Site
 		}
 		#wpadminbar #wp-toolbar #wp-admin-bar-root-default #wp-admin-bar-wp-logo .ab-item .ab-icon:before {
 			display: block;
-			background-image: url(' . get_stylesheet_directory_uri() . '/static/images/logo_horizontal_reverse.svg);
+			background-image: url(' . get_stylesheet_directory_uri() . '/static/images/logo/header-white-logo.svg);
 			background-position: center;
 			background-size: contain;
 			background-repeat: no-repeat;
@@ -251,13 +251,13 @@ class StarterSite extends Timber\Site
 			background: #1d2327;
 		}
 		#wpadminbar .menupop .ab-sub-wrapper {
-			// background: #2c3338;
+			// background: #343434;
 		}
 		#adminmenu a{
 			// color: #fff;
 		}
 		#adminmenu a:hover, #adminmenu li.menu-top:hover, #adminmenu li.opensub>a.menu-top, #adminmenu li>a.menu-top:focus{
-			// background: #000;
+			background: #000;
 		}
 		#wpadminbar .ab-item, #wpadminbar a.ab-item, #wpadminbar>#wp-toolbar span.ab-label, #wpadminbar>#wp-toolbar span.noticon{
 			// color: #fff;
@@ -276,7 +276,7 @@ class StarterSite extends Timber\Site
 		#wpadminbar #wp-toolbar #wp-admin-bar-top-secondary li.hover > a:before,
 		#wpadminbar #wp-toolbar #wp-admin-bar-top-secondary li:hover > a:before,
 		#wpadminbar #wp-toolbar #wp-admin-bar-top-secondary #adminbarsearch:hover:before {
-			color: #5B9A92;
+			color: #B4683F;
 		}
 	</style>
 	';
@@ -354,8 +354,8 @@ class StarterSite extends Timber\Site
 
 		#wpwrap #adminmenumain #adminmenuwrap #adminmenu li a:hover,
 		#wpwrap #adminmenumain #adminmenuwrap #adminmenu li a:focus {
-			color: #5B9A92;
-			box-shadow: inset 4px 0 0 0 #5B9A92;
+			color: #B4683F;
+			box-shadow: inset 4px 0 0 0 #B4683F;
 		}
 		#wpwrap #adminmenumain #adminmenuwrap #adminmenu li a:hover .wp-menu-image:before, 
 		#wpwrap #adminmenumain #adminmenuwrap #adminmenu li a:focus .wp-menu-image:before, 
@@ -363,43 +363,43 @@ class StarterSite extends Timber\Site
 		#wpwrap #adminmenumain #adminmenuwrap #adminmenu li.opensub a.menu-top .wp-menu-image:before, 
 		#collapse-button:hover,
 		#collapse-button:focus {
-			color: #5B9A92;
+			color: #B4683F;
 		}
 
 		#wpwrap #adminmenumain #adminmenuwrap #adminmenu li a.wp-has-current-submenu,
 		.wp-core-ui .button-primary {
-			background: #03554b;
+			background: #464E14;
 			color: white !important;
 		}
 		.wp-core-ui .button-primary {
-			border-color: #03554b;
+			border-color: #464E14;
 		}
 		.wp-core-ui .button {
-			color: #03554b;
-			border-color: #03554b;
+			color: #464E14;
+			border-color: #464E14;
 			transition: .3s;
 		}
 		.wp-core-ui .button:focus,
 		.wrap .page-title-action:focus {
-			box-shadow: 0 0 0 1px #fff, 0 0 0 3px #03554b;
+			box-shadow: 0 0 0 1px #fff, 0 0 0 3px #464E14;
 		}
 		.wrap .page-title-action {
-			border: 1px solid #03554b;
-			color: #03554b;
+			border: 1px solid #464E14;
+			color: #464E14;
 			transition: .3s;
 		}
 
 		.wp-core-ui .button-primary:focus,
 		.wp-core-ui .button-primary:hover {
-			background: #012a25;
-			border-color: #012a25;
+			background: #7C4C33;
+			border-color: #7C4C33;
 		}
 		.wp-core-ui .button:focus,
 		.wp-core-ui .button:hover,
 		.wrap .page-title-action:focus,
 		.wrap .page-title-action:hover {
-			color: #012a25;
-			border-color: #012a25;
+			color: #7C4C33;
+			border-color: #7C4C33;
 		}
 
 	</style>
@@ -456,13 +456,11 @@ class StarterSite extends Timber\Site
 	 * Load Favicon
 	 **************************/
 	public function loadFavicon() {
-		echo '<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-		<link rel="manifest" href="/site.webmanifest">
-		<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-		<meta name="msapplication-TileColor" content="#ffffff">
-		<meta name="theme-color" content="#ffffff">';
+		echo '<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+				<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+				<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+				<link rel="manifest" href="/site.webmanifest" />';
 	}
 
 	/*******************************
