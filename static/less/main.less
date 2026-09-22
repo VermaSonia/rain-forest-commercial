@@ -174,8 +174,12 @@
 }
 
 .error404 {
+    header{
+        background-color: var(--neu-100);
+    }
     .error-block {
         padding-bottom: 50px;
+        padding-top: 120px;
 
         h1 {
             color: var(--neu-500);
@@ -567,12 +571,13 @@ body {
             cursor: pointer;
 
             .back-icon {
-
+                opacity: 0;
+                visibility: hidden;
                 width: 10px;
                 height: 10px;
 
-                border-left: 2px solid var(--white);
-                border-bottom: 2px solid var(--white);
+                border-left: 2px solid transparent;
+                border-bottom: 2px solid transparent;
 
                 transform: rotate(45deg);
             }
@@ -589,6 +594,11 @@ body {
 
             .submenu-back {
                 display: flex;
+                .back-icon{
+                    opacity: 1;
+                    visibility: visible;
+                    border-color: var(--white);
+                }
             }
         }
     }
@@ -1680,13 +1690,16 @@ header {
     }
 
     .form-container {
-        max-width: 634px;
+        width: 100%;
         border-radius: 16px;
         .light-bg();
         padding: var(--space-sm);
-
+        
         @media @min768 {
             padding: var(--space-md);
+        }
+        @media @min1024{
+            max-width: 634px;
         }
 
         h2 {
