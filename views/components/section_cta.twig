@@ -6,7 +6,7 @@
 
 {% for page in flex %}
 	{% if page.acf_fc_layout == 'cta_section' %}
-		<section class="section-cta" id="section-cta">
+		<section class="section-cta" data-aos="fade-zoom-in" data-aos-easing="ease-in-back" id="section-cta">
 				<div class="img-content">
 					<img src="{{get_image(page.image).src}}" alt="{{get_image(page.image).src}}" class="img-responsive">
 				</div>

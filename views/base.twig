@@ -9,14 +9,14 @@
 {% block header %}
 	<header class="header padding-lr">
 		<div class="wrapper container">
-			<a class="site-logo" href="{{site.link}}" rel="home" aria-label="site logo">
+			<a data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="0" class="site-logo" href="{{site.link}}" rel="home" aria-label="site logo">
 				{{source (directory ~ '/static/images/logo/header-white-logo.svg') }}
 			</a>
 
-			<nav id="site-navigation" class="nav-main" role="navigation">
+			<nav id="site-navigation" class="nav-main" role="navigation" data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="150">
 				{% include "menu.twig" with{'items':menu.get_items} %}
 			</nav>
-			<div class="cta">
+			<div class="cta" data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="300">
 				<a class="primary-btn modal-trigger-btn modal-trigger" href="javascript:void(0)" aria-label="Request a Proposal">Request a Proposal</a>
 			</div>
 			<div class="button_container" id="toggle" data-aos="fade-zoom-in" data-aos-easing="ease-in-back">

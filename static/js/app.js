@@ -192,41 +192,33 @@ jQuery(document).ready(function ($) {
       $('html').removeClass('hidden');
     }
   });
-  // AOS.init({
-  //   startEvent: 'DOMContentLoaded',
-  //   duration: 1000,
-  //   easing: 'ease-in-quad',
-  //   disable: 'mobile',
-  //   once: true
-  // });
 
-  // AOS.refresh();
 
-  //     AOS.init({
-  //   startEvent: 'DOMContentLoaded',
-  //   duration: 800,
-  //   easing: 'ease-in-quad',
-  //   disable: 'mobile',
-  //   once: true
-  // });
+  AOS.init({
+    startEvent: 'DOMContentLoaded',
+    duration: 1000,
+    easing: 'ease-in-quad',
+    disable: 'mobile',
+    once: true
+  });
 
-  // AOS.refresh();
+  AOS.refresh();
 
-  // window.addEventListener('pageshow', function () {
-  //   setTimeout(() => {
-  //     window.scrollBy(0, 1); // Nudge scroll to trigger observers
-  //     window.scrollBy(0, -1);
-  //     AOS.refreshHard();
-  //   }, 50);
-  // });
+  window.addEventListener('pageshow', function () {
+    setTimeout(() => {
+      window.scrollBy(0, 1); // Nudge scroll to trigger observers
+      window.scrollBy(0, -1);
+      AOS.refreshHard();
+    }, 50);
+  });
 
-  // $(window).one('scroll', function() {
-  //   AOS.refresh();
-  // });
+  $(window).one('scroll', function () {
+    AOS.refresh();
+  });
 
-  // if ('scrollRestoration' in history) {
-  //   history.scrollRestoration = 'manual';
-  // }
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
 
 
   // //*** Smooth Scroll ***

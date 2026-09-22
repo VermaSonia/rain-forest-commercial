@@ -6,7 +6,7 @@
 
 {% for page in flex %}
 	{% if page.acf_fc_layout == 'what_to_expact' %}
-		<section class="what-to-expect padding" id="what-to-expect">
+		<section class="what-to-expect padding" data-aos="fade-zoom-in" data-aos-easing="ease-in-back" id="what-to-expect">
 			<div class="container">
 				<div class="img-content">
 					<img src="{{ get_image(page.image).src }}" alt="{{ get_image(page.image).src }}" class="img-responsive">

@@ -7,7 +7,7 @@
 {% for page in flex %}
 	{% if page.acf_fc_layout == 'testimonials_section' %}
 		{% set page = page.testimonails %}
-		<section class="testimonial-section padding" id="testimonial-section">
+		<section class="testimonial-section padding" data-aos="fade-zoom-in" data-aos-easing="ease-in-back" id="testimonial-section">
 			<div class="container">
 				<div class="head-container">
 					<h2 class="charcol center title">{{ page.title }}</h2>
