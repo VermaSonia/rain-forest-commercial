@@ -1,9 +1,15 @@
+{% if post.post_type in ['industry', 'case-studies', 'location', 'commercial-hvac', 'commercial-plumbing', 'commercial-refrigera', 'commercial-water-hea', 'project-improvement', 'property-maintenance'] %}
+	{% set flex = post.meta('comp') %}
+{% else %}
+	{% set flex = field.meta('comp') %}
+{% endif %}
+
 <div class="form-modal padding-lr" id="form-modal">
     <div class="wrapper container">
         <div class="form-container">
-            {% for page in field.meta('comp') %}
+            {% for page in flex %}
                 {% if page.acf_fc_layout == 'contact_us_section' %}
-                    <h2 class="h6 charcol title">{{ page.form_title }}</h2>
+                    <h2 class="h6 charcol title">{{ page.form_title }}{{ source(directory ~ '/static/images/icon/close.svg') }}</h2>
                     {{ page.form_shortcode|shortcodes }}
                 {% endif %}
             {% endfor %}

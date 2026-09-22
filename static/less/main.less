@@ -349,6 +349,12 @@ body {
         .form-container {
             h2 {
                 margin-bottom: var(--space-48);
+                .display-flex(flex, var(--space-sm), row, center);
+                justify-content: space-between;
+                svg{
+                    transform: rotate(45deg);
+                    cursor: pointer;
+                }
             }
         }
     }
@@ -1490,6 +1496,10 @@ header {
 
                     .faq-answer {
                         margin-top: 10px;
+                        ul{
+                            margin-block: var(--space-xxs);
+                            margin-left: var(--space-20);
+                        }
                     }
 
                     .faq-question {
@@ -1551,6 +1561,10 @@ header {
                 .faq-answer {
                     margin-top: var(--space-12);
                     padding-right: 50px;
+                    ul{
+                        margin-block: var(--space-xxs);
+                        margin-left: var(--space-20);
+                    }
                 }
 
                 .faq-question {
