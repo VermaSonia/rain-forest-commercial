@@ -14,8 +14,8 @@ jQuery(document).ready(function ($) {
   $('#site-navigation3 ul li:not(.menu-item-96):not(.menu-item-97) a').on('click', function () {
     $('#toggle').click();
   });
-  /////////////////////////////////////////////////////////////
 
+  /*****************************Mobile Menu*******************************/
 
   const $nav = $('#site-navigation3');
   const navEl = $nav[0];
@@ -168,7 +168,7 @@ jQuery(document).ready(function ($) {
   });
 
 
-  /////////////////////////////////////////////////////////////
+  /***************************** Form Modal *******************************/
 
   //form-modal -- Request a Proposal Button
   $('.modal-trigger').click(function (e) {
@@ -193,7 +193,7 @@ jQuery(document).ready(function ($) {
     }
   });
 
-
+ /***************************** AOS Animation *******************************/
   AOS.init({
     startEvent: 'DOMContentLoaded',
     duration: 1000,
@@ -221,7 +221,7 @@ jQuery(document).ready(function ($) {
   }
 
 
-  // //*** Smooth Scroll ***
+   /***************************** Smooth Scroll *******************************/
   window.addEventListener('load', function () {
     const hash = window.location.hash;
     if (hash) {
@@ -255,11 +255,6 @@ jQuery(document).ready(function ($) {
       $('header').removeClass('fixed-header');   // Else fade out the arrow
     }
   }
-
-  /************************************************
-  uncomment follwoing code if window.innerheight is
-  included in fixedHeaderOnScroll function.  
-  *************************************************/
 
   $(window).on('load scroll resize', function () {
     fixedHeaderOnScroll();
@@ -296,7 +291,7 @@ jQuery(document).ready(function ($) {
 
 
 
-  //Slick SLider
+   /***************************** Our Credentials SLider *******************************/
   $('.logo-slider').slick({
     autoplay: true,
     autoplaySpeed: 0,
@@ -349,9 +344,7 @@ jQuery(document).ready(function ($) {
     cssEase: 'cubic-bezier(0.77, 0, 0.18, 1)',
   });
 
-  // ================================
-  // STATISTICS NUMBER ANIMATION
-  // ================================
+   /***************************** Number Animation *******************************/
 
   function buildNumber($wrap) {
     var value = String($wrap.attr('data-number') || '').trim();
@@ -475,7 +468,7 @@ jQuery(document).ready(function ($) {
       numberObserver.observe(this);
     });
   }
-  //FAQ
+   /***************************** FAQ *******************************/
   function initFaqAccordion(sectionSelector) {
     var $section = $(sectionSelector);
     if (!$section.length) {
@@ -517,6 +510,7 @@ jQuery(document).ready(function ($) {
   initFaqAccordion('.faq-list');
 
 });
+
 /****************************************** 
 ***********stacking cards slider***********
 *******************************************/

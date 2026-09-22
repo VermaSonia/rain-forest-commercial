@@ -1,9 +1,4 @@
-/*  Guidlines for font-size range
-    Formula: font-size: calc([minimum size] + ([maximum size] - [minimum size]) * ((100vw - [minimum viewport width]) / ([maximum viewport width] - [minimum viewport width])));
-    Example: font-size: calc(70px + (84 - 70) * ((100vw - 300px) / (1600 - 300)));
 
-    Usage: .font-size(48,28);
-*/
 .lh(@max, @min) {
     line-height: @min;
 
@@ -111,11 +106,6 @@ button,
     }
 }
 
-// mark{
-//     color: var(--pri-500);
-//     background-color: var(--white);
-//     transition: all .3s ease-in-out;
-// }
 
 .letter-spacing(@mb, @dk) {
     letter-spacing:~"@{mb}px";
