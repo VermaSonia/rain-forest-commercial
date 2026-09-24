@@ -77,7 +77,6 @@ class StarterSite extends Timber\Site
 		add_action('init', array( $this,'remove_editor' ) );
 		add_action('wp_before_admin_bar_render', array( $this, 'admin_custom_logo' ) );
 		add_action( 'after_setup_theme', array( $this, 'theme_register_nav_menus' ) );
-		add_action( 'after_setup_theme', array( $this, 'image_cropping_sizes' ) );
 		add_action( 'after_setup_theme', array( $this, 'acf_options_page_for_theme' ) );
 		add_action('admin_head', array( $this, 'my_custom_fonts') );
 		add_action( 'admin_menu', array( $this, 'remove_default_post_type') );
@@ -87,10 +86,192 @@ class StarterSite extends Timber\Site
 		add_action( 'wp_before_admin_bar_render', array( $this, 'mytheme_admin_bar_render') );
 		add_action( 'add_attachment', array( $this, 'my_set_image_meta_upon_image_upload') );
 		add_filter('gform_submit_button_1', array( $this,'register_form_btn'), 10,2 );
+        // add_action( 'init', array($this, 'bulk_update_acf_content' ));  
+
+		// add_action( 'init', array( $this, 'debug_acf_components' ) );
 
 		parent::__construct();
 	}
+public function bulk_update_acf_content() {
 
+    if ( ! isset($_GET['run_acf_bulk_update']) ) {
+        return;
+    }
+
+    if ( ! current_user_can('manage_options') ) {
+        wp_die('You do not have permission to run this.');
+    }
+
+    $posts = get_posts(array(
+        'post_type'      => array('page', 'post','industry', 'case-studies', 'location', 'commercial-hvac', 'commercial-plumbing', 'commercial-refrigera', 'commercial-water-hea', 'project-improvement', 'property-maintenance'),
+        'post_status'    => 'any',
+        'posts_per_page' => -1,
+    ));
+
+    /*
+     * ONLY CONTENT is being changed.
+     *
+     * 0 = Card 1
+     * 1 = Card 2
+     * 2 = Card 3
+     */
+    $content_updates = array(
+
+		0 => 'We hold every job to a meticulous standard that protects our clients\' assets and reputation.',
+        1 => 'We invest in long-term client relationships, acting as a trusted partner not a one-off vendor.',
+        2 => 'We use data and technology to move faster, adapt quicker, and deliver solutions ahead of need.',
+
+    );
+
+    $cards_changed = 0;
+
+    foreach ( $posts as $post ) {
+
+        $post_id = $post->ID;
+
+        $card_count = get_post_meta(
+            $post_id,
+            'comp_3_cards',
+            true
+        );
+
+        if ( empty($card_count) ) {
+            continue;
+        }
+
+        for ( $i = 0; $i < intval($card_count); $i++ ) {
+
+            // Only update Content
+            if ( ! isset($content_updates[$i]) ) {
+                continue;
+            }
+
+            $content_key = 'comp_3_cards_' . $i . '_content';
+
+            update_post_meta(
+                $post_id,
+                $content_key,
+                $content_updates[$i]
+            );
+
+            $cards_changed++;
+
+            echo 'UPDATED CONTENT: ID ' . $post_id .
+                 ' - Card ' . ($i + 1) .
+                 ' - ' . esc_html(get_the_title($post_id)) .
+                 '<br>';
+        }
+    }
+
+    echo '<hr>';
+    echo '<strong>Cards changed: ' . $cards_changed . '</strong>';
+
+    exit;
+}
+
+// add_action( 'init', array( $this, 'bulk_update_acf_content' ) );
+
+
+
+// add_action( 'init', array( $this, 'debug_acf_components' ) );
+
+	// public function bulk_update_acf_content() {
+
+	// 	if ( ! isset($_GET['run_acf_bulk_update']) ) {
+	// 		return;
+	// 	}
+
+	// 	if ( ! current_user_can('manage_options') ) {
+	// 		wp_die('You do not have permission to run this.');
+	// 	}
+
+	// 	$posts = get_posts(array(
+	// 		'post_type'      => 'any',
+	// 		'post_status'    => 'any',
+	// 		'posts_per_page' => -1,
+	// 	));
+
+	// 	$new_content = 'We use data and technology to move faster, adapt quicker, and deliver solutions ahead of need.';
+
+	// 	$posts_changed = 0;
+	// 	$cards_changed = 0;
+
+	// 	foreach ( $posts as $post ) {
+
+	// 		$post_id = $post->ID;
+
+	// 		/*
+	// 		* Get the parent Flexible Content field.
+	// 		*
+	// 		* "components" is the Field Name shown in your screenshot.
+	// 		*/
+	// 		$components = get_field('components', $post_id);
+
+	// 		if ( ! is_array($components) ) {
+	// 			continue;
+	// 		}
+
+	// 		$post_changed = false;
+
+	// 		foreach ( $components as $layout_index => $layout ) {
+
+	// 			/*
+	// 			* Only target the "Section 3 Cards" layout.
+	// 			*/
+	// 			if (
+	// 				! isset($layout['acf_fc_layout']) ||
+	// 				$layout['acf_fc_layout'] !== 'section_3_cards'
+	// 			) {
+	// 				continue;
+	// 			}
+
+	// 			/*
+	// 			* "cards" is the Repeater inside Section 3 Cards.
+	// 			*/
+	// 			if ( empty($layout['cards']) || ! is_array($layout['cards']) ) {
+	// 				continue;
+	// 			}
+
+	// 			foreach ( $layout['cards'] as $card_index => $card ) {
+
+	// 				/*
+	// 				* Update the Content sub-field.
+	// 				*/
+	// 				$components[$layout_index]['cards'][$card_index]['content'] = $new_content;
+
+	// 				$cards_changed++;
+	// 				$post_changed = true;
+	// 			}
+	// 		}
+
+	// 		/*
+	// 		* Save the entire Flexible Content field back to ACF.
+	// 		*/
+	// 		if ( $post_changed ) {
+
+	// 			update_field(
+	// 				'components',
+	// 				$components,
+	// 				$post_id
+	// 			);
+
+	// 			$posts_changed++;
+
+	// 			echo 'UPDATED: ID ' . $post_id . ' - ' . esc_html(get_the_title($post_id)) . '<br>';
+	// 		}
+	// 	}
+
+	// 	echo '<hr>';
+	// 	echo '<strong>Posts changed: ' . $posts_changed . '</strong><br>';
+	// 	echo '<strong>Cards changed: ' . $cards_changed . '</strong>';
+
+	// 	exit;
+	// }
+
+
+
+// add_action( 'init', array( $this, 'bulk_update_acf_pages' ) );
+	
 	public function register_form_btn ($button, $form) {
     	return '<button type="submit" class="gform_button submit-btn">
 					Submit <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -310,13 +491,6 @@ class StarterSite extends Timber\Site
 	public function options_page_global( $context ) {
 		$context['options'] = get_fields('option');
 		return $context;
-	}
-
-	/**
-	 * Image Cropping Sizes
-	 */
-	public function image_cropping_sizes() {
-		add_image_size('hero', 1640, 768, true);
 	}
 
 	/****************

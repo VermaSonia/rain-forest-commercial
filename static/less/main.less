@@ -350,9 +350,21 @@ body {
         width: 100%;
         border-top: 1px solid var(--neu-300);
         padding-top: var(--space-md);
+        height: 100%;
 
         .overlay-menu {
             width: 100%;
+            .display-flex(flex, var(--space-40), column, stretch);
+            height: calc(100vh - 120px);
+            .cta{
+                .display-flex(flex, var(--space-24), column, center);
+                justify-content: center;
+                margin-top: auto;
+                margin-bottom: var(--space-24);
+                @media @min768{
+                    display: none !important;
+                }
+            }
         }
 
         ul {
@@ -697,11 +709,11 @@ div {
     background-color: var(--sec-300);
     border: 2px solid var(--sec-300);
     padding: 8px 24px;
-    font-weight: 400;
+    font-weight: 700;
     text-decoration: none;
     display: inline-block;
     transition: all .3s ease-in-out;
-    font-family: var(--font-primary);
+    font-family: var(--font-secondary);
     .font-size(18, 16);
     .lh(30px, 24px);
     color: var(--white);
@@ -1991,9 +2003,9 @@ header {
                     padding: var(--space-24);
                     .display-flex(flex, var(--space-sm), row, flex-start);
 
-                    @media @min1024 {
-                        min-height: 200px;
-                    }
+                    // @media @min1024 {
+                    //     min-height: 200px;
+                    // }
 
                     .content {
                         margin-top: var(--space-xs);

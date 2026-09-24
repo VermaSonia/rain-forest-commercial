@@ -2,38 +2,38 @@
 {% block html_head_container %}
 	{% include 'partials/html-header.twig' %}
 	{% block head %}{% endblock %}
-</head>{% endblock %}<body class="{{body_class}}" data-template="base.twig">
-<a class="skip-link screen-reader-text" aria-label="skip to content" href="#content">{{ _e( 'Skip to content')}}</a>
-{# <a href="javascript:" id="return-to-top"><i class="glyphicon glyphicon-chevron-up" aria-hidden="true"></i></a> #}
+	</head>{% endblock %}<body class="{{ body_class }}" data-template="base.twig">
+	<a class="skip-link screen-reader-text" aria-label="skip to content" href="#content">{{ _e('Skip to content') }}</a>
+	{# <a href="javascript:" id="return-to-top"><i class="glyphicon glyphicon-chevron-up" aria-hidden="true"></i></a> #}
 
-{% block header %}
-	<header class="header padding-lr">
-		<div class="wrapper container">
-			<a data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="0" class="site-logo" href="{{site.link}}" rel="home" aria-label="site logo">
-				{{source (directory ~ '/static/images/logo/header-white-logo.svg') }}
-			</a>
+	{% block header %}
+		<header class="header padding-lr">
+			<div class="wrapper container">
+				<a data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="0" class="site-logo" href="{{ site.link }}" rel="home" aria-label="site logo">
+					{{ source(directory ~ '/static/images/logo/header-white-logo.svg') }}
+				</a>
 
-			<nav id="site-navigation" class="nav-main" role="navigation" data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="150">
-				{% include "menu.twig" with{'items':menu.get_items} %}
-			</nav>
-			<div class="cta" data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="300">
-				<a class="primary-btn modal-trigger-btn modal-trigger" href="javascript:void(0)" aria-label="Request a Proposal">Request a Proposal</a>
+				<nav id="site-navigation" class="nav-main" role="navigation" data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="150">
+					{% include "menu.twig" with {'items': menu.get_items} %}
+				</nav>
+				<div class="cta" data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="300">
+					<a class="primary-btn modal-trigger-btn modal-trigger" href="javascript:void(0)" aria-label="Request a Proposal">Request a Proposal</a>
+				</div>
+				<div class="button_container" id="toggle" data-aos="fade-zoom-in" data-aos-easing="ease-in-back">
+					<span class="top"></span>
+					<span class="middle"></span>
+					<span class="bottom"></span>
+				</div>
 			</div>
-			<div class="button_container" id="toggle" data-aos="fade-zoom-in" data-aos-easing="ease-in-back">
-				<span class="top"></span>
-				<span class="middle"></span>
-				<span class="bottom"></span>
-			</div>
-		</div>
-	</header>
-{% endblock %}
+		</header>
+	{% endblock %}
 
-{# Include Hero #}
-{% include 'partials/hero.twig' %}
+	{# Include Hero #}
+	{% include 'partials/hero.twig' %}
 
 
-<section id="content" role="main" class="content-wrapper">
-	<div class="wrapper{{sidebar_class}}"> {% block content %}{% endblock %}
+	<section id="content" role="main" class="content-wrapper">
+		<div class="wrapper{{ sidebar_class }}"> {% block content %}{% endblock %}
 		</div>
 	</section>
 
@@ -42,11 +42,22 @@
 	<div class="overlay padding-lr" id="overlay">
 		<div class="wrapper container">
 			<a
-				class="site-logo" href="{{site.link}}" rel="home" aria-label="{{site.name}}">{# {{source (directory ~ '/images/logo/procast-logo.svg') }} #}
+				class="site-logo"
+				href="{{ site.link }}"
+				rel="home"
+				aria-label="{{ site.name }}"
+			>{# {{source (directory ~ '/images/logo/procast-logo.svg') }} #}
 			</a>
 			<div class="overlay-nav-main">
 				<nav id="site-navigation3" class="overlay-menu" role="navigation">
-					{% include "menu.twig" with{'items':menu.get_items} %}
+					{% include "menu.twig" with {'items': menu.get_items} %}
+					<div class="cta">
+						<a class="primary-btn modal-trigger-btn modal-trigger" href="javascript:void(0)" aria-label="Request a Proposal">Request a Proposal</a>
+						<a href="tel:{{ options.cta.phone_number }}" aria-label="call us at {{ options.cta.name }}" class="phone-btn">
+							{{ source(directory ~ '/static/images/icon/phone.svg') }}
+							{{ options.cta.name }}
+						</a>
+					</div>
 				</nav>
 			</div>
 		</div>
@@ -56,7 +67,7 @@
 		<footer id="footer">
 			{% include 'partials/footer.twig' %}
 		</footer>
-		{{ function('wp_footer')}}
+		{{ function('wp_footer') }}
 	{% endblock %}
 	<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
