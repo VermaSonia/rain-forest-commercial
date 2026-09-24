@@ -9,8 +9,7 @@ jQuery(document).ready(function ($) {
     }
   });
 
-  // Closes overlay menu after clicking on the menu link
-  // Normal menu links
+// Close the mobile menu when a normal link is tapped
   $('#site-navigation3 ul li:not(.menu-item-96):not(.menu-item-97) a').on('click', function () {
     $('#toggle').click();
   });
@@ -41,10 +40,26 @@ jQuery(document).ready(function ($) {
     $nav.find('li.is-open').removeClass('is-open');
   }
 
+  // Level 0: open the submenu overlay (same result as tapping the text)
+  function openPanel($item) {
+    $item.siblings('li').removeClass('is-open');
+    $item.addClass('is-open');
+    $nav.addClass('submenu-open');
+  }
+
+  // Level 1: expand / collapse the third level in place
   function toggleAccordion($item) {
     const wasOpen = $item.hasClass('is-open');
     $item.siblings('li').removeClass('is-open');
     $item.toggleClass('is-open', !wasOpen);
+  }
+
+  // An item has a submenu if it actually contains a <ul>.
+  // We no longer depend on the "has-children" class being present,
+  // because Case Studies (a parent that also has its own page) was
+  // not being picked up by it.
+  function hasSub($li) {
+    return $li.children('ul').length > 0;
   }
 
   // Tap position for mouse, pointer and touch events
@@ -54,70 +69,34 @@ jQuery(document).ready(function ($) {
     return null;
   }
 
-  // True if the tap landed in the chevron zone on the right of a link
-  // (used when the chevron is a pseudo-element, not a real .chevron)
-  function isInChevronZone(e, anchorEl) {
-    const ZONE = 48; // px width of the chevron tap area, adjust if needed
-    const x = getX(e);
-    if (x === null) return false;
-    return x >= anchorEl.getBoundingClientRect().right - ZONE;
-  }
-
-  // Returns the level-1 <li> if this event hit a level-1 chevron, else null
-
+  // Returns the <li> if this event hit a chevron/arrow, else null
   function getChevronItem(e) {
     if (!e.target || !e.target.closest || !navEl.contains(e.target)) {
       return null;
     }
 
-    // ============================================
-    // REAL .chevron ELEMENT
-    // ============================================
+    // Real .chevron element
     const chev = e.target.closest('.chevron');
-
     if (chev) {
-      const $li = $(chev).closest('li.has-children');
-
-      if ($li.length) {
-        return $li;
-      }
+      const $li = $(chev).closest('li');
+      if ($li.length && hasSub($li)) return $li;
     }
 
-    // ============================================
-    // FALLBACK: CLICK ON THE RIGHT SIDE
-    // ============================================
-    const a = e.target.closest(
-      'ul.menu-level-0 > li.has-children > a, ' +
-      'ul.menu-level-1 > li.has-children > a'
-    );
+    // Arrow drawn as a pseudo-element: hit-test the right edge of the row
+    const a = e.target.closest('ul.menu-level-0 > li > a, ul.menu-level-1 > li > a');
+    if (!a) return null;
 
-    if (!a) {
-      return null;
-    }
-
-    const $li = $(a).closest('li.has-children');
-
-    if (!$li.length) {
-      return null;
-    }
+    const $li = $(a).parent();
+    if (!hasSub($li)) return null;
 
     const x = getX(e);
-
-    if (x === null) {
-      return null;
-    }
+    if (x === null) return null;
 
     // Use the LI's full width, not the link's width.
-    const liRect = $li[0].getBoundingClientRect();
-
     const ZONE = 60;
-
-    if (x >= liRect.right - ZONE) {
-      return $li;
-    }
-
-    return null;
+    return x >= $li[0].getBoundingClientRect().right - ZONE ? $li : null;
   }
+
   // =====================================================
   // CREATE BACK BUTTON
   // =====================================================
@@ -133,7 +112,6 @@ jQuery(document).ready(function ($) {
   // =====================================================
   // CHEVRON (CAPTURE PHASE, RUNS BEFORE EVERYTHING ELSE)
   // =====================================================
-  // Click: toggle the accordion and block all other handlers.
   function onChevronClick(e) {
     const $item = getChevronItem(e);
     if (!$item) return;
@@ -142,11 +120,13 @@ jQuery(document).ready(function ($) {
     e.stopPropagation();
     e.stopImmediatePropagation();
 
-    toggleAccordion($item);
+    if ($item.parent().hasClass('menu-level-0')) {
+      openPanel($item);          // Who We Are / What We Do / Case Studies
+    } else {
+      toggleAccordion($item);    // level-1 accordion
+    }
   }
 
-  // Other events: only stop them from reaching theme "click outside"
-  // handlers. No preventDefault, so the click still fires normally.
   function onChevronOther(e) {
     if (getChevronItem(e)) {
       e.stopPropagation();
@@ -161,28 +141,26 @@ jQuery(document).ready(function ($) {
   });
 
   // =====================================================
-  // FIRST LEVEL CLICK (opens the submenu overlay)
+  // FIRST LEVEL TEXT CLICK
+  // Who We Are / What We Do: text opens the submenu.
+  // Case Studies (menu-item-95): text is a normal link to its own page,
+  // so it is left alone here and only its arrow opens the submenu.
   // =====================================================
-  $nav.on('click.mobileMenu', 'ul.menu-level-0 > li.has-children:not(.menu-item-95) > a',
-    function (e) {
-      e.preventDefault();
-      e.stopImmediatePropagation();
-      const $item = $(this).closest('li');
-      $item.siblings('li').removeClass('is-open');
-      $item.addClass('is-open');
-      $nav.addClass('submenu-open');
-      return false;
-    }
-  );
+  $nav.on('click.mobileMenu', 'ul.menu-level-0 > li:not(.menu-item-95) > a', function (e) {
+    const $item = $(this).parent();
+    if (!hasSub($item)) return;   // plain link, let it navigate
+
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    openPanel($item);
+    return false;
+  });
 
   // =====================================================
   // SECOND LEVEL LINK CLICK (text navigates normally)
   // =====================================================
-  // Chevron taps never reach this handler because the capture
-  // handler above stops them first.
-  $nav.on('click.mobileMenu', 'ul.menu-level-1 > li.has-children > a', function () {
+  $nav.on('click.mobileMenu', 'ul.menu-level-1 > li > a', function () {
     closeAll();
-    // No preventDefault: the browser follows the link
   });
 
   // =====================================================
@@ -201,7 +179,6 @@ jQuery(document).ready(function ($) {
     closeAll();
     return false;
   });
-
 
   /***************************** Form Modal *******************************/
 
@@ -229,31 +206,31 @@ jQuery(document).ready(function ($) {
   });
 
   /***************************** AOS Animation *******************************/
-  // AOS.init({
-  //   startEvent: 'DOMContentLoaded',
-  //   duration: 1000,
-  //   easing: 'ease-in-quad',
-  //   disable: 'mobile',
-  //   once: true
-  // });
+  AOS.init({
+    startEvent: 'DOMContentLoaded',
+    duration: 800,
+    easing: 'ease-in-quad',
+    disable: 'mobile',
+    once: true
+  });
 
-  // AOS.refresh();
+  AOS.refresh();
 
-  // window.addEventListener('pageshow', function () {
-  //   setTimeout(() => {
-  //     window.scrollBy(0, 1); // Nudge scroll to trigger observers
-  //     window.scrollBy(0, -1);
-  //     AOS.refreshHard();
-  //   }, 50);
-  // });
+  window.addEventListener('pageshow', function () {
+    setTimeout(() => {
+      window.scrollBy(0, 1); // Nudge scroll to trigger observers
+      window.scrollBy(0, -1);
+      AOS.refreshHard();
+    }, 50);
+  });
 
-  // $(window).one('scroll', function () {
-  //   AOS.refresh();
-  // });
+  $(window).one('scroll', function () {
+    AOS.refresh();
+  });
 
-  // if ('scrollRestoration' in history) {
-  //   history.scrollRestoration = 'manual';
-  // }
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
 
 
   /***************************** Smooth Scroll *******************************/

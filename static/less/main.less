@@ -358,12 +358,11 @@ body {
             width: 100%;
             .display-flex(flex, var(--space-40), column, stretch);
             height: calc(100vh - 120px);
-
+            margin-bottom: var(--space-24);
             .cta {
                 .display-flex(flex, var(--space-24), column, center);
                 justify-content: center;
                 margin-top: auto;
-                margin-bottom: var(--space-24);
 
                 @media @min768 {
                     display: none !important;
@@ -479,7 +478,7 @@ body {
         }
 
         ul.menu-level-1>li.is-open>ul {
-            max-height: 1200px;
+            max-height: 1500px;
             opacity: 1;
             padding: var(--space-24) 0 4px;
         }
@@ -1037,7 +1036,7 @@ header {
             // ==========================================
             >ul {
                 position: absolute;
-                top: 100%;
+                top: 40px;
                 left: -33%;
                 // transform: translateX(-50%);
                 width: 315px;
@@ -1168,7 +1167,7 @@ header {
                             // width: calc(100% - 375px);
                             grid-template-columns: 1fr;
                             position: absolute;
-                            top: 24px;
+                            top: 36px;
                             left: var(--submenu-left);
                             right: 0;
                             padding: 0px 30px;
@@ -2450,13 +2449,15 @@ footer {
                 flex: 1;
             }
 
-            .display-flex(flex, 28px, column, center);
+            .display-flex(flex, 28px, column, flex-start);
 
             .social-media {
                 display: flex;
                 flex-direction: row;
                 gap: var(--space-sm);
                 align-items: center;
+                justify-content: center;
+                width: 200px !important;
 
                 svg {
                     transition: all .3s ease-in-out;
