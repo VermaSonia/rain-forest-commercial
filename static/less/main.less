@@ -139,9 +139,10 @@
 }
 
 .error404 {
-    header{
+    header {
         background-color: var(--neu-100);
     }
+
     .error-block {
         padding-bottom: 50px;
         padding-top: 120px;
@@ -308,7 +309,8 @@ body {
                 margin-bottom: var(--space-48);
                 .display-flex(flex, var(--space-sm), row, center);
                 justify-content: space-between;
-                svg{
+
+                svg {
                     transform: rotate(45deg);
                     cursor: pointer;
                 }
@@ -356,12 +358,14 @@ body {
             width: 100%;
             .display-flex(flex, var(--space-40), column, stretch);
             height: calc(100vh - 120px);
-            .cta{
+
+            .cta {
                 .display-flex(flex, var(--space-24), column, center);
                 justify-content: center;
                 margin-top: auto;
                 margin-bottom: var(--space-24);
-                @media @min768{
+
+                @media @min768 {
                     display: none !important;
                 }
             }
@@ -551,7 +555,8 @@ body {
 
             .submenu-back {
                 display: flex;
-                .back-icon{
+
+                .back-icon {
                     opacity: 1;
                     visibility: visible;
                     border-color: var(--white);
@@ -1019,6 +1024,7 @@ header {
             position: relative;
             cursor: pointer;
             --submenu-left: 260px;
+
             &:has(.has-children) {
                 >a {
                     pointer-events: none;
@@ -1197,6 +1203,7 @@ header {
                         >a {
                             color: var(--pri-400);
                         }
+
                         &::after {
                             content: "";
                             position: absolute;
@@ -1237,8 +1244,15 @@ header {
                     }
                 }
             }
-            &.menu-item-97{
-                 --submenu-left: 310px;
+
+            &.menu-item-97 {
+                --submenu-left: 310px;
+            }
+
+            &.menu-item-95 {
+                >ul.menu-level-1 {
+                    width: 405px;
+                }
             }
         }
     }
@@ -1464,7 +1478,8 @@ header {
 
                     .faq-answer {
                         margin-top: 10px;
-                        ul{
+
+                        ul {
                             margin-block: var(--space-xxs);
                             margin-left: var(--space-20);
                         }
@@ -1529,7 +1544,8 @@ header {
                 .faq-answer {
                     margin-top: var(--space-12);
                     padding-right: 50px;
-                    ul{
+
+                    ul {
                         margin-block: var(--space-xxs);
                         margin-left: var(--space-20);
                     }
@@ -1651,11 +1667,12 @@ header {
         border-radius: 16px;
         .light-bg();
         padding: var(--space-sm);
-        
+
         @media @min768 {
             padding: var(--space-md);
         }
-        @media @min1024{
+
+        @media @min1024 {
             max-width: 634px;
         }
 
@@ -1744,6 +1761,12 @@ header {
         .serving-list {
             .list-item {
                 background-color: var(--white);
+
+                &:hover {
+                    img {
+                        transform: none;
+                    }
+                }
             }
         }
 
@@ -1796,6 +1819,10 @@ header {
                 width: 414px;
             }
 
+            @media @min1300 {
+                flex: 0 0 414px;
+            }
+
             .content {
                 margin-top: var(--space-sm);
             }
@@ -1807,6 +1834,11 @@ header {
 
             @media @min1024 {
                 width: auto !important;
+            }
+
+            @media @min1300 {
+                width: 745px !important;
+                flex: 0 0 745px;
             }
 
             .content-details {
@@ -2395,6 +2427,10 @@ header {
 ***********************************/
 
 footer {
+    .site-logo {
+        width: 200px !important;
+    }
+
     #contact {
         .padding-lr();
     }
@@ -2458,7 +2494,8 @@ footer {
         }
 
         .location-details {
-            flex: 1;
+            flex: 0 0 auto;
+            width: 308px;
 
             @media @max768 {
                 text-align: center;

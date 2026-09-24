@@ -64,25 +64,60 @@ jQuery(document).ready(function ($) {
   }
 
   // Returns the level-1 <li> if this event hit a level-1 chevron, else null
-  function getChevronItem(e) {
-    if (!e.target || !e.target.closest || !navEl.contains(e.target)) return null;
 
-    // Real .chevron element
-    const chev = e.target.closest('.chevron');
-    if (chev) {
-      const $li = $(chev).closest('li');
-      return $li.parent('ul').hasClass('menu-level-1') ? $li : null;
+  function getChevronItem(e) {
+    if (!e.target || !e.target.closest || !navEl.contains(e.target)) {
+      return null;
     }
 
-    // Pseudo-element chevron (right edge of the link)
-    const a = e.target.closest('ul.menu-level-1 > li.has-children > a');
-    if (a && isInChevronZone(e, a)) {
-      return $(a).parent('li');
+    // ============================================
+    // REAL .chevron ELEMENT
+    // ============================================
+    const chev = e.target.closest('.chevron');
+
+    if (chev) {
+      const $li = $(chev).closest('li.has-children');
+
+      if ($li.length) {
+        return $li;
+      }
+    }
+
+    // ============================================
+    // FALLBACK: CLICK ON THE RIGHT SIDE
+    // ============================================
+    const a = e.target.closest(
+      'ul.menu-level-0 > li.has-children > a, ' +
+      'ul.menu-level-1 > li.has-children > a'
+    );
+
+    if (!a) {
+      return null;
+    }
+
+    const $li = $(a).closest('li.has-children');
+
+    if (!$li.length) {
+      return null;
+    }
+
+    const x = getX(e);
+
+    if (x === null) {
+      return null;
+    }
+
+    // Use the LI's full width, not the link's width.
+    const liRect = $li[0].getBoundingClientRect();
+
+    const ZONE = 60;
+
+    if (x >= liRect.right - ZONE) {
+      return $li;
     }
 
     return null;
   }
-
   // =====================================================
   // CREATE BACK BUTTON
   // =====================================================
@@ -128,17 +163,17 @@ jQuery(document).ready(function ($) {
   // =====================================================
   // FIRST LEVEL CLICK (opens the submenu overlay)
   // =====================================================
-  $nav.on('click.mobileMenu', 'ul.menu-level-0 > li.has-children > a', function (e) {
-    e.preventDefault();
-    e.stopImmediatePropagation();
-
-    const $item = $(this).closest('li');
-    $item.siblings('li').removeClass('is-open');
-    $item.addClass('is-open');
-    $nav.addClass('submenu-open');
-
-    return false;
-  });
+  $nav.on('click.mobileMenu', 'ul.menu-level-0 > li.has-children:not(.menu-item-95) > a',
+    function (e) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      const $item = $(this).closest('li');
+      $item.siblings('li').removeClass('is-open');
+      $item.addClass('is-open');
+      $nav.addClass('submenu-open');
+      return false;
+    }
+  );
 
   // =====================================================
   // SECOND LEVEL LINK CLICK (text navigates normally)
@@ -193,35 +228,35 @@ jQuery(document).ready(function ($) {
     }
   });
 
- /***************************** AOS Animation *******************************/
-  AOS.init({
-    startEvent: 'DOMContentLoaded',
-    duration: 1000,
-    easing: 'ease-in-quad',
-    disable: 'mobile',
-    once: true
-  });
+  /***************************** AOS Animation *******************************/
+  // AOS.init({
+  //   startEvent: 'DOMContentLoaded',
+  //   duration: 1000,
+  //   easing: 'ease-in-quad',
+  //   disable: 'mobile',
+  //   once: true
+  // });
 
-  AOS.refresh();
+  // AOS.refresh();
 
-  window.addEventListener('pageshow', function () {
-    setTimeout(() => {
-      window.scrollBy(0, 1); // Nudge scroll to trigger observers
-      window.scrollBy(0, -1);
-      AOS.refreshHard();
-    }, 50);
-  });
+  // window.addEventListener('pageshow', function () {
+  //   setTimeout(() => {
+  //     window.scrollBy(0, 1); // Nudge scroll to trigger observers
+  //     window.scrollBy(0, -1);
+  //     AOS.refreshHard();
+  //   }, 50);
+  // });
 
-  $(window).one('scroll', function () {
-    AOS.refresh();
-  });
+  // $(window).one('scroll', function () {
+  //   AOS.refresh();
+  // });
 
-  if ('scrollRestoration' in history) {
-    history.scrollRestoration = 'manual';
-  }
+  // if ('scrollRestoration' in history) {
+  //   history.scrollRestoration = 'manual';
+  // }
 
 
-   /***************************** Smooth Scroll *******************************/
+  /***************************** Smooth Scroll *******************************/
   window.addEventListener('load', function () {
     const hash = window.location.hash;
     if (hash) {
@@ -291,7 +326,7 @@ jQuery(document).ready(function ($) {
 
 
 
-   /***************************** Our Credentials SLider *******************************/
+  /***************************** Our Credentials SLider *******************************/
   $('.logo-slider').slick({
     autoplay: true,
     autoplaySpeed: 0,
@@ -344,7 +379,7 @@ jQuery(document).ready(function ($) {
     cssEase: 'cubic-bezier(0.77, 0, 0.18, 1)',
   });
 
-   /***************************** Number Animation *******************************/
+  /***************************** Number Animation *******************************/
 
   function buildNumber($wrap) {
     var value = String($wrap.attr('data-number') || '').trim();
@@ -468,46 +503,58 @@ jQuery(document).ready(function ($) {
       numberObserver.observe(this);
     });
   }
-   /***************************** FAQ *******************************/
-  function initFaqAccordion(sectionSelector) {
-    var $section = $(sectionSelector);
-    if (!$section.length) {
-      return;
-    }
-    var $faqButtons = $section.find('.faq-button');
-    if (!$faqButtons.length) {
-      return;
-    }
-    // Hide all answers
-    $faqButtons.find('.faq-answer').hide();
-    // Open first item
+  /***************************** FAQ *******************************/
+function initFaqAccordion(sectionSelector, openFirst = false) {
+  var $section = $(sectionSelector);
+
+  if (!$section.length) {
+    return;
+  }
+
+  var $faqButtons = $section.find('.faq-button');
+
+  if (!$faqButtons.length) {
+    return;
+  }
+
+  // Hide all answers initially
+  $faqButtons
+    .removeClass('is-active')
+    .find('.faq-answer')
+    .hide();
+
+  // Open first item only when requested
+  if (openFirst) {
     $faqButtons
       .first()
       .addClass('is-active')
       .find('.faq-answer')
       .show();
-    // FAQ click
-    $faqButtons.on('click', function () {
-      var $current = $(this);
-      // Close other FAQ items
-      $faqButtons
-        .not($current)
-        .removeClass('is-active')
-        .find('.faq-answer')
-        .stop(true, true)
-        .slideUp();
-
-      // Toggle current item
-      $current
-        .toggleClass('is-active')
-        .find('.faq-answer')
-        .stop(true, true)
-        .slideToggle();
-    });
   }
 
-  initFaqAccordion('.expect-section');
-  initFaqAccordion('.faq-list');
+  // FAQ click
+  $faqButtons.on('click', function () {
+    var $current = $(this);
+
+    // Close other FAQ items
+    $faqButtons
+      .not($current)
+      .removeClass('is-active')
+      .find('.faq-answer')
+      .stop(true, true)
+      .slideUp();
+
+    // Toggle current item
+    $current
+      .toggleClass('is-active')
+      .find('.faq-answer')
+      .stop(true, true)
+      .slideToggle();
+  });
+}
+
+initFaqAccordion('.expect-section', true);
+initFaqAccordion('.faq-list', false);
 
 });
 

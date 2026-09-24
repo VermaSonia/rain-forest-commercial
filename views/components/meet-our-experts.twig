@@ -17,7 +17,7 @@
 				</div>
 				<div class="serving-list section-medium-top">
 					{% for list in page.experts %}
-						<a class="list-item" href="{{list.link}}" aria-label="{{list.title}}">
+						<div class="list-item" href="{{list.link}}" aria-label="{{list.title}}">
 							<div class="img-content">
 								<img src="{{get_image(list.image).src}}" alt="{{get_image(list.image).src}}" class="img-responsive">
 							</div>
@@ -25,7 +25,7 @@
 								<h3 class="charcol h6 title">{{list.title }}</h3>
 								<div class="content small">{{list.position }}</div>
 							</div>
-						</a>
+						</div>
 					{% endfor %}
 				</div>
 			</div>
