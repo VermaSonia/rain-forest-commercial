@@ -147,35 +147,37 @@
         padding-bottom: 50px;
         padding-top: 120px;
 
-        h1 {
-            color: var(--neu-500);
-            .font-size(180, 80);
-            text-shadow:
-                1px 1px 1px var(--neu-100),
-                2px 2px 1px var(--neu-100),
-                3px 3px 1px var(--neu-100),
-                4px 4px 1px var(--neu-100),
-                5px 5px 1px var(--neu-100),
-                6px 6px 1px var(--neu-100),
-                7px 7px 1px var(--neu-100),
-                8px 8px 1px var(--neu-100),
-                25px 25px 8px rgba(0, 0, 0, 0.2);
-        }
+        .container {
+            .grid(1);
+            gap: var(--space-40);
 
-        h3 {
-            color: var(--neu-100);
+            @media @min768 {
+                .grid(2);
+                align-items: center;
+            }
+
+            .left-content {
+                .sub-title {
+                    padding-top: var(--space-24);
+                }
+
+                .content {
+                    padding-top: var(--space-sm);
+                }
+
+                .back-home {
+                    .custom-btn();
+                    max-width: max-content;
+                    margin: auto;
+                    margin-top: 40px;
+                    // width: 100%;
+                    // display: block;
+                }
+            }
         }
 
     }
 
-    .back-home {
-        .custom-btn();
-        max-width: max-content;
-        margin: auto;
-        margin-top: 40px;
-        width: 100%;
-        display: block;
-    }
 }
 
 .hidden {
@@ -359,6 +361,7 @@ body {
             .display-flex(flex, var(--space-40), column, stretch);
             height: calc(100vh - 120px);
             margin-bottom: var(--space-24);
+
             .cta {
                 .display-flex(flex, var(--space-24), column, center);
                 justify-content: center;
@@ -933,6 +936,11 @@ img {
 /**********************************
 * HEADER
 ***********************************/
+.page-template-page-privacy-terms {
+    header {
+        background-color: var(--neu-100);
+    }
+}
 
 header {
     padding: 6px 0;
@@ -1320,6 +1328,91 @@ header {
 /**********************************
 * COMMON CODE
 ***********************************/
+.privacy-policy-page,
+.cookie-policy-page,
+.terms-conditions-page {
+    padding-top: 150px;
+    padding-bottom: 80px;
+
+    .container {
+        max-width: 848px;
+    }
+
+    h1 {
+        .font-size(48, 36) !important;
+        .lh(56px, 44px) !important;
+    }
+
+    h2 {
+        .font-size(32, 28) !important;
+        .lh(40px, 36px) !important;
+        margin-top: var(--space-md);
+
+        @media @min992 {
+            margin-top: var(--space-48);
+        }
+    }
+
+    h3 {
+        .font-size(24, 22) !important;
+        .lh(32px, 30px) !important;
+        margin-top: var(--space-24);
+
+        @media @min992 {
+            margin-top: var(--space-md);
+        }
+    }
+
+    h4,
+    h5 {
+        .font-size(20, 18) !important;
+        .lh(28px, 24px) !important;
+        margin-top: var(--space-24);
+
+        @media @min992 {
+            margin-top: var(--space-md);
+        }
+    }
+
+    .h1,
+    .h2,
+    .h3,
+    .h4,
+    .h5,
+    .h6,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        color: var(--neu-100) !important;
+    }
+
+    p {
+        padding-top: var(--space-sm);
+    }
+
+    ul,
+    ol {
+        margin-top: var(--space-sm);
+        margin-left: var(--space-24);
+
+        >li {
+
+            >ul,
+            >ol {
+                list-style-type: lower-alpha;
+                margin-left: var(--space-sm);
+                margin-block: var(--space-xs);
+            }
+        }
+    }
+
+    iframe {}
+
+}
+
 .our-credentails-section {
     .container {
         .slider-container {

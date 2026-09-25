@@ -1,17 +1,23 @@
 {% extends "base.twig" %}{% block content %}
-<div class="error-block">
-    <div class="left-content">
-        <h1 class="title">404!</h1>
-                <h3 class="sub-title">Oops! Page Not Found</h3>
+    <div class="error-block padding">
+        <div class="container">
+            <div class="left-content">
+                <h1 class=" h2 charcol title">404!</h1>
+                <h3 class="h4 charcol sub-title">Oops! Page Not Found</h3>
                 <p class="content">
                     It looks like the page you’re looking for doesn’t exist. Don’t worry, we’ll help you get back on track!
                 </p>
-        <a class="back-home" aria-label="back-button" href="{{site.url}}">Go Back to Home Page</a>
+                <a class="back-home" aria-label="back-button" href="{{ site.url }}">
+                    Go Back to Home Page 
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="12" viewBox="0 0 14 12" fill="none">
+                        <path d="M1 6H13M8 11L13 6L8 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+            </div>
+            <div class="right-content">
+                <img src="{{ site.theme.link }}/static/images/mascot-404.svg" alt="404 Placeholder" class="img-responsive">
+            </div>
+        </div>
     </div>
-    <div class="right-content">
-        <img src="" alt="" class="img-responsive">
-    </div>
-    
-</div>
 {% endblock %}
 
